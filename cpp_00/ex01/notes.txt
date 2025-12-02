@@ -1,0 +1,46 @@
+///
+CLASSES
+///
+
+A class defines what something is.
+An object (an instance of the class) is one actual thing of that type.
+
+    Class = Contact
+    Object = 'John' (created from the Contact class)
+
+A class contains:
+ - Data (like variables in a C struct)
+ - Functions that belong to that data (methods)
+ - Access control:
+     Private: Only the inside of the class can access
+     Public: The outside world can call these functions
+
+----
+
+The header (.hpp) file contains the 'class definition':
+ - The variables it contains
+ - The public/private sections
+ - The method declarations (not the code)
+ - Includes
+
+The source (.cpp) file contains the method implementations:
+ - The actual code for each method declared in the header
+
+---
+
+///
+CONSTRUCTORS & DECONSTRUCTORS
+///
+
+A constructor is automatically called when an object is created.
+It sets up the initial state of the object.
+
+A destructor is automatically called when an object is destroyed.
+It handles cleanup before the object is removed.
+
+    If a constructor / deconstructor is NOT defined, 
+    the compiler will generate a default constructor.
+        - Safe for types like std::string (they self initialize).
+        - Unsafe for 'int', etc. Would contain garbage value.
+    
+Declared in the public section.
