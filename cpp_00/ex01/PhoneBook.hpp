@@ -18,10 +18,10 @@ class PhoneBook {
         void    addContact(const Contact &contact);
 
         // Show list of contacts (index, fName, lName, nName)
-        void    displayContacts() const;
+        void    displayAllContacts() const;
 
         // Show full info of a single contact
-        void    displayContact(int index) const;
-}
+        void    displaySingleContact(int index) const;
+};
 
 #endif
