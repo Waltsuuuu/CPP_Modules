@@ -36,12 +36,15 @@ static void printField(const std::string &str) {
 }
 
 // Displays a list of contacts (index, fName, lName, nName)
-void    PhoneBook::displayAllContacts() const {
+int    PhoneBook::displayAllContacts() const {
     if (_size == 0) {
+        std::cout << std::endl;
         std::cout << "PhoneBook is empty." << std::endl;
-        return ;
+        std::cout << std::endl;
+        return 0;
     }
 
+    std::cout << std::endl;
     std::cout << "---------------------------------------------" << std::endl;
     std::cout << "     Index|First Name| Last Name|  Nickname" << std::endl;
     std::cout << "---------------------------------------------" << std::endl;
@@ -59,6 +62,8 @@ void    PhoneBook::displayAllContacts() const {
         printField(_contacts[i].getNickName());
         std::cout <<std::endl;
     }
+    std::cout << std::endl;
+    return _size;
 }
 
 // Displays a single contact - all information.
@@ -70,9 +75,11 @@ void    PhoneBook::displaySingleContact(int index) const {
 
     const Contact &c = _contacts[index];
 
+    std::cout << std::endl;
     std::cout << "First Name:     " << c.getFirstName()     << std::endl;
     std::cout << "Last Name:      " << c.getLastName()      << std::endl;
     std::cout << "Nickname:       " << c.getNickName()      << std::endl;
     std::cout << "Phone Number:   " << c.getPhoneNumber()   << std::endl;
     std::cout << "Darkest Secret: " << c.getDarkestSecret() << std::endl;
+    std::cout << std::endl;
 }
