@@ -3,23 +3,37 @@
 #include <iostream>
 
 int main(int argc, char *argv[]) {
-	// ./replace <filename> <str_to_replace> <str_to_replace_with>
 	if (argc != 4) {
 		std::cout << "Usage: ./replace <filename> <str_to_replace> <str_to_replace_with>\n";
 		return (1);
 	}
 
+	std::string		toReplace = argv[2];
+	std::string		replaceWith = argv[3];
+	
+	if (toReplace.empty()) {
+		std::cout << "Error: <str_to_replace> cannot be empty.\n";
+		return (1);
+	}
+
 	// 1. Open the <filename> argv[1]
 	std::ifstream	inputFile(argv[1]);
-	
+	if (!inputFile) {
+		std::cout << "Error: Could not open input file.\n";
+		return (1);
+	}
+
 	// 2. Create and open output file called <filename>.replace
 	std::string		fileName = (std::string)argv[1] + ".replace";
 	std::ofstream	outputFile(fileName);
+	if (!outputFile) {
+		std::cout << "Error: failed to create output file.\n";
+		inputFile.close();
+		return (1);
+	}
 	
 	// 3. Copy 'inputFile' lines into 'outputFile', 
 	// Where every occurance of (argv[2]) is replaced with (argv[3]).
-	std::string		toReplace = argv[2];
-	std::string		replaceWith = argv[3];
 	std::string		line;
 	while (getline(inputFile, line)) {
 		size_t pos = line.find(toReplace);
@@ -27,12 +41,13 @@ int main(int argc, char *argv[]) {
 			line.erase(pos, toReplace.length());
 			line.insert(pos, replaceWith);
 			pos += replaceWith.length();
-			pos = line.find(line, pos);
+			pos = line.find(toReplace, pos);
 		}
 		outputFile << line;
 		if (!inputFile.eof())
 			outputFile << std::endl;
 	}
+
 	inputFile.close();
 	outputFile.close();
 	return (0);
