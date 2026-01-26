@@ -18,28 +18,29 @@ int main(int argc, char *argv[]) {
 	};
 
 	std::string input = argv[1];
-	int index = 5;
+	int index = -1;
 	for (int i = 0; i < 4; i++) {
 		if (levels[i] == input) {
-			index = i + 1;
+			index = i;
+			break ;
 		}
 	}
 
 	switch (index) {
-		case 1:
+		case 0:
 			std::cout << "[ DEBUG ]\n";
 			myHarl.complain("DEBUG");
-		case 2:
+		case 1:
 			std::cout << "[ INFO ]\n";
 			myHarl.complain("INFO");
-		case 3:
+		case 2:
 			std::cout << "[ WARNING ]\n";
 			myHarl.complain("WARNING");
-		case 4:
+		case 3:
 			std::cout << "[ ERROR ]\n";
 			myHarl.complain("ERROR");
 			break ;
-		case 5:
+		default:
 			std::cout << "[ Probably complaining about insignificant problems ]\n";
 	}
 	
