@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 			myHarl.complain("INFO");
 		case 3:
 			std::cout << "[ WARNING ]\n";
-			myHarl.complain("ERROR");
+			myHarl.complain("WARNING");
 		case 4:
 			std::cout << "[ ERROR ]\n";
 			myHarl.complain("ERROR");
