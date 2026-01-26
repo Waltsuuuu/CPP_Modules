@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 			myHarl.complain("ERROR");
 			break ;
 		case 5:
-			std::cout << "[ Probably complaining about insignificant probems ]\n";
+			std::cout << "[ Probably complaining about insignificant problems ]\n";
 	}
 	
 	return (0);
