@@ -2,21 +2,20 @@
 #include "Fixed.hpp"
 
 int main( void ) {
-	std::cout << "1.----\n";
 	Fixed a;
-	
-	std::cout << "2.----\n";
-	Fixed b( a );
-	
-	std::cout << "3.----\n";
-	Fixed c;
-	
-	std::cout << "4.----\n";
-	c = b;
-	
-	std::cout << "\nPrinting values:\n";
+	Fixed const b( 1 );
+	a = 10;
 	std::cout << a.getRawBits() << std::endl;
 	std::cout << b.getRawBits() << std::endl;
-	std::cout << c.getRawBits() << std::endl;
-	return (0);
+	// Fixed const c( 42.42f );
+	// Fixed const d( b );
+	// a = Fixed( 1234.4321f );
+	// std::cout << "a is " << a << std::endl;
+	// std::cout << "b is " << b << std::endl;
+	// std::cout << "c is " << c << std::endl;
+	// std::cout << "d is " << d << std::endl;
+	// std::cout << "a is " << a.toInt() << " as integer" << std::endl;
+	// std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+	// std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+	// std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 }

@@ -8,6 +8,13 @@ Fixed::Fixed() : _value(0) {
 	std::cout << "Default constructor called\n";
 }
 
+/* Integer Constructor
+	- Converts an integer into a fixed-point represenation.
+*/
+Fixed::Fixed(int input) : _value(input << _fracBits) {
+	std::cout << "Integer constructor called\n";
+} 
+
 /* Copy Constructor
 	- Creates a new Fixed object by copying 
 	  the internal '_value' from another Fixed object.

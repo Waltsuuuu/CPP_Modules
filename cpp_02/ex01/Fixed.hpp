@@ -9,7 +9,10 @@ class Fixed {
 	public:
 		// Default constructor
 		Fixed();
-		
+
+		// Int constructor
+		Fixed(int input);
+
 		// Copy constructor (Creates a new object as a copy of an existing one)
 		Fixed(const Fixed &copy);
 
