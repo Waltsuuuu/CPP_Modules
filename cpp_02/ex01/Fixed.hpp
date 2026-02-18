@@ -27,6 +27,9 @@ class Fixed {
 
 		// Sets the raw value of the fixed-point number
 		void setRawBits( int const raw );
+
+		// Converts the fixed-point value to an integer representation
+		int toInt( void ) const;
 };
 
 #endif

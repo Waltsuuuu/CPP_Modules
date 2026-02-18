@@ -9,11 +9,20 @@ Fixed::Fixed() : _value(0) {
 }
 
 /* Integer Constructor
-	- Converts an integer into a fixed-point represenation.
+	- Converts an integer into a fixed-point representation.
+	- Left shift bits by 8 (_fracBits) to make room for fractional part.
 */
 Fixed::Fixed(int input) : _value(input << _fracBits) {
 	std::cout << "Integer constructor called\n";
 } 
+
+/* Converst the fixed-point value to an integer representation 
+   by removing the fractional bits.
+	- Right shift bits by 8 (_fracBits), truncating the fractional part.
+*/
+int Fixed::toInt( void ) const {
+	return (_value >> _fracBits);
+}
 
 /* Copy Constructor
 	- Creates a new Fixed object by copying 
