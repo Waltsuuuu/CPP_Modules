@@ -21,3 +21,13 @@ Fixed& Fixed::operator=(const Fixed& fixed) {
 Fixed::~Fixed() {
 	std::cout << "Destructor called\n";
 }
+
+int Fixed::getRawBits( void ) const {
+	std::cout << "getRawBits member function called\n";
+	return (_value);
+}
+
+void Fixed::setRawBits( int const raw ) {
+	std::cout << "setRawBits member function called\n";
+	_value = raw;
+}
