@@ -21,8 +21,8 @@ Fixed::Fixed(const Fixed &copy) : _value(copy._value){
 	- Includes a self-assignment check to avoid unnecessary work.
 */
 Fixed& Fixed::operator=(const Fixed& fixed) {
-	std::cout << "Copy assignemnt operator called\n";
-	// Self assignmnet guard
+	std::cout << "Copy assignment operator called\n";
+	// Self assignment guard
 	if (this != &fixed) {
 		this->_value = fixed._value;
 	}
