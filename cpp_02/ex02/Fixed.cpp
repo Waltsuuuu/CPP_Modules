@@ -6,7 +6,6 @@
 	- Initializes the Fixed object wtih a fixed-point value of 0.
 */
 Fixed::Fixed() : _value(0) {
-	std::cout << "Default constructor called\n";
 }
 
 /* Integer Constructor
@@ -14,7 +13,6 @@ Fixed::Fixed() : _value(0) {
 	- Left shift bits by 8 (_fracBits) to make room for fractional part.
 */
 Fixed::Fixed(int input) : _value(input << _fracBits) {
-	std::cout << "Integer constructor called\n";
 }
 
 /* Float Constructor
@@ -24,7 +22,6 @@ Fixed::Fixed(int input) : _value(input << _fracBits) {
 	- Stores the result as the fixed-point value.
 */
 Fixed::Fixed(float input) {
-	std::cout << "Float constructor called\n";
 	float scaled = input * (1 << _fracBits);
 	_value = static_cast<int>(roundf(scaled));
 }
@@ -34,12 +31,10 @@ Fixed::Fixed(float input) {
 	  the internal '_value' from another Fixed object.
 */
 Fixed::Fixed(const Fixed &copy) : _value(copy._value){
-	std::cout << "Copy constructor called\n";
 }
 
 /* Fixed Object Destructor*/
 Fixed::~Fixed() {
-	std::cout << "Destructor called\n";
 }
 
 // -------------- MEMBER FUNCTIONS
@@ -60,13 +55,11 @@ int Fixed::toInt( void ) const {
 
 /* Sets the raw fixed-point value stored in the object */
 void Fixed::setRawBits( int const raw ) {
-	std::cout << "setRawBits member function called\n";
 	_value = raw;
 }
 
 /* Returns the raw fixed-point value stored in the object */
 int Fixed::getRawBits( void ) const {
-	std::cout << "getRawBits member function called\n";
 	return (_value);
 }
 
@@ -77,7 +70,6 @@ int Fixed::getRawBits( void ) const {
 	- Includes a self-assignment check to avoid unnecessary work.
 */
 Fixed& Fixed::operator=(const Fixed& fixed) {
-	std::cout << "Copy assignment operator called\n";
 	// Self assignment guard
 	if (this != &fixed) {
 		this->_value = fixed._value;
