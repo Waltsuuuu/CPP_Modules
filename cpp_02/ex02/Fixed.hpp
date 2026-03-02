@@ -32,6 +32,12 @@ class Fixed {
 	// '/' Operator overload.
 		Fixed operator / (const Fixed& other);
 
+	// '>' Operator overload.
+		bool operator > (const Fixed& other) const;
+
+	// '<' Operator overload.
+		bool operator < (const Fixed& other) const;
+
 	// Returns the '_value' exactly as it is stored.
 		int getRawBits( void ) const;
 
