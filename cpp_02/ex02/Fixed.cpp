@@ -90,3 +90,7 @@ std::ostream& operator<<(std::ostream& out, const Fixed& value) {
 Fixed Fixed::operator * (const Fixed& other) {
 	return Fixed(this->toFloat() * other.toFloat());
 }
+
+Fixed Fixed::operator + (const Fixed& other) {
+	return Fixed(this->toFloat() + other.toFloat());
+}
