@@ -13,6 +13,9 @@ int main( void ) {
 		std::cout << "a is greater than b" << std::endl;
 	if (b < a)
 		std::cout << "b is less than a" << std::endl;
+	a = 10;
+	if (a == b)
+		std::cout << "a is equal to b" << std::endl;
 	// std::cout << ++a << std::endl;
 	// std::cout << a << std::endl;
 	// std::cout << a++ << std::endl;

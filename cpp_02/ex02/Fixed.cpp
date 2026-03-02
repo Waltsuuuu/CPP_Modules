@@ -104,9 +104,13 @@ Fixed Fixed::operator / (const Fixed& other) {
 }
 
 bool Fixed::operator > (const Fixed& other) const {
-	return this->toFloat() > other.toFloat();
+	return (this->toFloat() > other.toFloat());
 }
 
 bool Fixed::operator < (const Fixed& other) const {
 	return (other > *this);
+}
+
+bool Fixed::operator == (const Fixed& other) const {
+	return (this->toFloat() == other.toFloat());
 }
