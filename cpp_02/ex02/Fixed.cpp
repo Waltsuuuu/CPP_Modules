@@ -118,3 +118,11 @@ bool Fixed::operator == (const Fixed& other) const {
 bool Fixed::operator != (const Fixed& other) const {
 	return (!(*this == other));
 }
+
+bool Fixed::operator >= (const Fixed& other) const {
+	return (*this > other) || (*this == other);
+}
+
+bool Fixed::operator <= (const Fixed& other) const {
+	return (*this < other) || (*this == other);
+}

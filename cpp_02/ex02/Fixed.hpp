@@ -34,9 +34,15 @@ class Fixed {
 
 	// '>' Operator overload.
 		bool operator > (const Fixed& other) const;
+	
+	// '>=' Operator overload.
+		bool operator >= (const Fixed& other) const ; 
 
 	// '<' Operator overload.
 		bool operator < (const Fixed& other) const;
+
+	// '<=' Operator overload.
+		bool operator <= (const Fixed& other) const;
 
 	// '==' Operator overload.
 		bool operator == (const Fixed& other) const;
