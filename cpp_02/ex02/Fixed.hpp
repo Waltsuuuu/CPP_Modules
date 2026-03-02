@@ -26,6 +26,9 @@ class Fixed {
 	// '+' Operator overload.
 		Fixed operator + (const Fixed& other);
 
+	// '-' Operator overload.
+		Fixed operator - (const Fixed& other);
+
 	// Returns the '_value' exactly as it is stored.
 		int getRawBits( void ) const;
 
