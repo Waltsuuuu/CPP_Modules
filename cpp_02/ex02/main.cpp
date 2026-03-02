@@ -3,11 +3,12 @@
 
 int main( void ) {
 	Fixed a;
-	Fixed const b( Fixed( 5.1f ) * Fixed( 2 ) );
+	Fixed const b( Fixed( 5.0f ) * Fixed( 2 ) );
 	std::cout << b << std::endl;
 	a = 30;
 	std::cout << a + b << std::endl;
 	std::cout << a - b << std::endl;
+	std::cout << a / b << std::endl;
 	// std::cout << ++a << std::endl;
 	// std::cout << a << std::endl;
 	// std::cout << a++ << std::endl;
