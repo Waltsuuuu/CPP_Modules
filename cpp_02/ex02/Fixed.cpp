@@ -126,3 +126,28 @@ bool Fixed::operator >= (const Fixed& other) const {
 bool Fixed::operator <= (const Fixed& other) const {
 	return (*this < other) || (*this == other);
 }
+
+// Pre-increment
+Fixed& Fixed::operator ++ () {
+	++_value;
+	return (*this);
+}
+
+// Pre-decrement
+Fixed& Fixed::operator -- () {
+	--_value;
+	return (*this);
+}
+
+// Post-increment
+Fixed Fixed::operator ++ (int) {
+	Fixed old(*this);
+	_value++;
+	return (old);
+}
+
+Fixed Fixed::operator -- (int) {
+	Fixed old(*this);
+	_value--;
+	return (old);
+}

@@ -4,8 +4,14 @@
 int main( void ) {
 	// Fixed const b( Fixed( 5.0f ) * Fixed( 2 ) );
 	// std::cout << b << std::endl;
-	Fixed a(1.5f);
-	std::cout << a.getRawBits() << std::endl;
+	Fixed a(1);
+	std::cout << "a raw value = " << a.getRawBits() << std::endl;
+	std::cout << "a float value = " << a.toFloat() << std::endl;
+	Fixed b(a++);
+	std::cout << "a raw = " << a.getRawBits() << std::endl;
+	std::cout << "a float = " << a.toFloat() << std::endl;
+	std::cout << "b raw = " << b.getRawBits() << std::endl;
+	std::cout << "b float = " << b.toFloat() << std::endl;
 	// std::cout << a + b << std::endl;
 	// std::cout << a - b << std::endl;
 	// std::cout << a / b << std::endl;

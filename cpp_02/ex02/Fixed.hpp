@@ -22,8 +22,14 @@ class Fixed {
 		Fixed	operator + (const Fixed& other);
 		Fixed	operator - (const Fixed& other);
 		Fixed	operator / (const Fixed& other);
+		// Pre-increment/decrement
+		Fixed&	operator ++ ();
+		Fixed&	operator -- ();
+		// Post-increment/decrement
+		Fixed	operator ++ (int);
+		Fixed	operator -- (int);
 		bool	operator > (const Fixed& other) const;
-		bool	operator >= (const Fixed& other) const ; 
+		bool	operator >= (const Fixed& other) const; 
 		bool	operator < (const Fixed& other) const;
 		bool	operator <= (const Fixed& other) const;
 		bool	operator == (const Fixed& other) const;
