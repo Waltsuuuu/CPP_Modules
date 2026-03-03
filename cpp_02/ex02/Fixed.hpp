@@ -18,10 +18,10 @@ class Fixed {
 
 	// Operator overload.
 		Fixed&	operator = (const Fixed& fixed);
-		Fixed	operator * (const Fixed& other);
-		Fixed	operator + (const Fixed& other);
-		Fixed	operator - (const Fixed& other);
-		Fixed	operator / (const Fixed& other);
+		Fixed	operator * (const Fixed& other) const;
+		Fixed	operator + (const Fixed& other) const;
+		Fixed	operator - (const Fixed& other) const;
+		Fixed	operator / (const Fixed& other) const;
 		// Pre-increment/decrement
 		Fixed&	operator ++ ();
 		Fixed&	operator -- ();
@@ -34,6 +34,14 @@ class Fixed {
 		bool	operator <= (const Fixed& other) const;
 		bool	operator == (const Fixed& other) const;
 		bool	operator != (const Fixed& other) const;
+	
+	// Returns a reference to the smallest of the input.
+		static Fixed&		min(Fixed& a, Fixed& b);
+		static const Fixed&	min(const Fixed& a, const Fixed& b);
+
+	// Returns a reference to the largest of the input.
+		static Fixed&		max(Fixed& a, Fixed& b);
+		static const Fixed& max(const Fixed& a, const Fixed& b);
 
 	// Returns the '_value' exactly as it is stored.
 		int		getRawBits( void ) const;

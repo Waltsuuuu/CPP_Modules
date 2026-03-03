@@ -1,34 +1,12 @@
 #include <iostream>
 #include "Fixed.hpp"
 
-int main( void ) {
-	// Fixed const b( Fixed( 5.0f ) * Fixed( 2 ) );
-	// std::cout << b << std::endl;
-	Fixed a(1);
-	std::cout << "a raw value = " << a.getRawBits() << std::endl;
-	std::cout << "a float value = " << a.toFloat() << std::endl;
-	Fixed b(a++);
-	std::cout << "a raw = " << a.getRawBits() << std::endl;
-	std::cout << "a float = " << a.toFloat() << std::endl;
-	std::cout << "b raw = " << b.getRawBits() << std::endl;
-	std::cout << "b float = " << b.toFloat() << std::endl;
-	// std::cout << a + b << std::endl;
-	// std::cout << a - b << std::endl;
-	// std::cout << a / b << std::endl;
-	// if (a > b)
-	// 	std::cout << "a is greater than b" << std::endl;
-	// if (b < a)
-	// 	std::cout << "b is less than a" << std::endl;
-	// if (a != b)
-	// 	std::cout << "a is NOT equal to b" << std::endl;
-	// a = 10;
-	// if (a == b)
-	// 	std::cout << "a is equal to b" << std::endl;
-	// std::cout << ++a << std::endl;
-	// std::cout << a << std::endl;
-	// std::cout << a++ << std::endl;
-	// std::cout << a << std::endl;
-	// std::cout << b << std::endl;
-	// std::cout << Fixed::max( a, b ) << std::endl;
-	return 0;
-	}
+int main()
+{
+	Fixed const a(5);
+	Fixed b(2);
+
+	std::cout << Fixed::min(a, b) << std::endl;
+	// std::cout << Fixed::max(a, b) << std::endl;
+    return 0;
+}
