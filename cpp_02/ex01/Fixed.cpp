@@ -2,9 +2,15 @@
 #include <iostream>
 #include <cmath>
 
-/* Default Constructor
-	- Initializes the Fixed object wtih a fixed-point value of 0.
+/*
+    Fixed-point format:
+    - Internal storage (_value) is an integer representing a value scaled by 2^_fracBits.
+    - Real value ≈ _value / (1 << _fracBits)
 */
+
+// -------------------- Constructors / Destructor --------------------
+
+/* Default Constructor: initializes '_value' to 0 */
 Fixed::Fixed() : _value(0) {
 	std::cout << "Default constructor called\n";
 }
@@ -19,9 +25,9 @@ Fixed::Fixed(int input) : _value(input << _fracBits) {
 
 /* Float Constructor
 	- Converts a float into a fixed-point representation.
-	- Multiplies the float (input) by 2^_fracBits to scale it.
-	- Rounds the result to the nearest integer.
-	- Stores the result as the fixed-point value.
+	- Multiplies 'input' by 2^_fracBits to scale it.
+	- Rounds the scaled result to the nearest integer.
+	- Stores the scaled result as the fixed-point '_value'.
 */
 Fixed::Fixed(float input) {
 	std::cout << "Float constructor called\n";
@@ -37,50 +43,47 @@ Fixed::Fixed(const Fixed &copy) : _value(copy._value){
 	std::cout << "Copy constructor called\n";
 }
 
-/* Fixed Object Destructor*/
+/* Destructor*/
 Fixed::~Fixed() {
 	std::cout << "Destructor called\n";
 }
 
-// -------------- MEMBER FUNCTIONS
 
-/* Converts the fixed-point value to a float representation
-*/
+// -------------------- Conversions --------------------
+
+/* Converts the fixed-point '_value' to floating-point representation */
 float Fixed::toFloat( void ) const {
 	return (static_cast<float>(_value) / (1 << _fracBits));
 }
 
-/* Converts the fixed-point value to an integer representation 
-   by removing the fractional bits.
-	- Right shift bits by 8 (_fracBits), truncating the fractional part.
-*/
+/* Converts the fixed-point '_value' to integer representation */
 int Fixed::toInt( void ) const {
 	return (_value >> _fracBits);
 }
 
-/* Sets the raw fixed-point value stored in the object */
+
+// -------------------- Raw accessors --------------------
+
+/* Sets the raw fixed-point '_value' stored in the object */
 void Fixed::setRawBits( int const raw ) {
 	std::cout << "setRawBits member function called\n";
 	_value = raw;
 }
 
-/* Returns the raw fixed-point value stored in the object */
+/* Returns the raw fixed-point '_value' stored in the object */
 int Fixed::getRawBits( void ) const {
 	std::cout << "getRawBits member function called\n";
 	return (_value);
 }
 
-// -------------- OPERATOR OVERLOAD
 
-/* Copy Assignment Operator ( = operator overload )
-	- Assigns the value of one Fixed object to another existing Fixed object.
-	- Includes a self-assignment check to avoid unnecessary work.
-*/
-Fixed& Fixed::operator=(const Fixed& fixed) {
+// -------------------- Operators --------------------
+
+Fixed& Fixed::operator=(const Fixed& other) {
 	std::cout << "Copy assignment operator called\n";
 	// Self assignment guard
-	if (this != &fixed) {
-		this->_value = fixed._value;
+	if (this != &other) {
+		this->_value = other._value;
 	}
 	return (*this);
 }

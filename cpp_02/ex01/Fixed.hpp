@@ -4,25 +4,25 @@
 
 class Fixed {
 	private:
-		int 				_value;
-		static const int	_fracBits = 8;
+		int 				_value;			// Fixed-point representation.
+		static const int	_fracBits = 8;	// Number of bits representing the fractional part of '_value'.
 	public:
 	// Constructors
-		Fixed();
-		Fixed(int input);
-		Fixed(float input);
-		Fixed(const Fixed &copy);
+		Fixed();					// Default
+		Fixed(int input);			// Integer
+		Fixed(float input);			// Float
+		Fixed(const Fixed &copy);	// Copy
 		
 	// Destructor
 		~Fixed();
 
 	// '=' Operator overload.
-			Fixed& operator = (const Fixed& fixed);
+		Fixed& operator = (const Fixed& other);
 
-	// Returns the '_value' exactly as it is stored.
+	// Returns the raw fixed-point '_value' of the object.
 		int getRawBits( void ) const;
 
-	// Sets the '_value' of the fixed-point number.
+	// Sets the raw fixed-point '_value' of the object.
 		void setRawBits( int const raw );
 
 	// Converts the fixed-point '_value' to an integer representation.
