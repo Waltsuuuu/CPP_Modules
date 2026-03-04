@@ -2,10 +2,15 @@
 #include <iostream>
 
 /* Default Constructor
-	- Initializes the Fixed object wtih a fixed-point value of 0.
+	- Initializes the Fixed object wtih a fixed-point '_value' of 0.
 */
 Fixed::Fixed() : _value(0) {
 	std::cout << "Default constructor called\n";
+}
+
+/* Destructor */
+Fixed::~Fixed() {
+	std::cout << "Destructor called\n";
 }
 
 /* Copy Constructor
@@ -17,29 +22,24 @@ Fixed::Fixed(const Fixed &copy) : _value(copy._value){
 }
 
 /* Copy Assignment Operator ( = operator overload )
-	- Assigns the value of one Fixed object to another existing Fixed object.
-	- Includes a self-assignment check to avoid unnecessary work.
+	- Replaces the contents of an EXISTING OBJECT with the contents of 'other'.
 */
-Fixed& Fixed::operator=(const Fixed& fixed) {
+Fixed& Fixed::operator=(const Fixed& other) {
 	std::cout << "Copy assignment operator called\n";
 	// Self assignment guard
-	if (this != &fixed) {
-		this->_value = fixed._value;
+	if (this != &other) {
+		this->_value = other._value;
 	}
 	return *this;
 }
 
-Fixed::~Fixed() {
-	std::cout << "Destructor called\n";
-}
-
-/* Sets the raw fixed-point value stored in the object */
+/* Sets the raw fixed-point '_value' of the object */
 void Fixed::setRawBits( int const raw ) {
 	std::cout << "setRawBits member function called\n";
 	_value = raw;
 }
 
-/* Returns the raw fixed-point value stored in the object */
+/* Returns the raw fixed-point '_value' of the object */
 int Fixed::getRawBits( void ) const {
 	std::cout << "getRawBits member function called\n";
 	return (_value);
