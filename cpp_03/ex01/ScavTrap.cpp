@@ -29,3 +29,23 @@ ScavTrap& ScavTrap::operator = (const ScavTrap& other) {
 	}
 	return (*this);
 }
+
+// ---------- Member Functions -----------
+
+void ScavTrap::attack(const std::string& target) {
+	if (_energyPoints <= 0 || _hitPoints <= 0) {
+		std::cout << "ScavTrap " << _name 
+				  << " does not have enough energy to attack." << std::endl;
+		return ;
+	}
+	_energyPoints--;
+	std::cout << "ScavTrap " << _name 
+			  << " attacks " << target
+			  << ", causing " << _attackDamage
+			  << " points of damage!" << std::endl;
+}
+
+void ScavTrap::guardGate() {
+	std::cout << "ScavTrap " << _name 
+			  << " is now in Gate keeper mode..." << std::endl;
+}

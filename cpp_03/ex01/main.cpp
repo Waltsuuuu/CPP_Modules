@@ -1,16 +1,15 @@
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 #include <iostream>
 
 int main() {
 	ClapTrap david("David");
-	ClapTrap goliath("Goliath");
+	ScavTrap goliath("Goliath");
 
 	goliath.attack("David");
-	david.takeDamage(5);
+	david.takeDamage(20);
 	david.beRepaired(5);
 	david.attack("Goliath");
-	goliath.takeDamage(11);
-
-	ClapTrap idk(david);
+	goliath.guardGate();
 	return 0;
 }

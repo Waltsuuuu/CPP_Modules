@@ -4,7 +4,7 @@
 #include <string>
 
 class ClapTrap {
-	protected:
+	protected: // Changed to protected so derived classes can access.
 		std::string	_name;		
 		int			_hitPoints;		// 10
 		int			_energyPoints;	// 10
