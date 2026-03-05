@@ -89,11 +89,11 @@ Fixed& Fixed::operator=(const Fixed& other) {
 }
 
 /* << Insertion operator overload.
-	- Takes a reference to a std::ostream object and a reference to the Fixed object value.
+	- Takes a reference to a 'std::ostream' object and a reference to the 'Fixed' object value.
 	- Converts Fixed object to a float and inserts it into the output stream.
 	- Return ostream object (which now includes the fixed-point value).
 */
-std::ostream& operator<<(std::ostream& out, const Fixed& value) {
-	out << value.toFloat();
+std::ostream& operator<<(std::ostream& out, const Fixed& fixed) {
+	out << fixed.toFloat();
 	return (out);
 }

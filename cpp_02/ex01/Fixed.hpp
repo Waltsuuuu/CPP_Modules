@@ -34,6 +34,6 @@ class Fixed {
 };
 
 // '<<' insertion operator overload.
-std::ostream& operator << (std::ostream& out, const Fixed& value);
+std::ostream& operator << (std::ostream& out, const Fixed& fixed);
 
 #endif

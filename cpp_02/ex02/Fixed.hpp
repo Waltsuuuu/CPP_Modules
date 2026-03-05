@@ -2,16 +2,21 @@
 # define FIXED_HPP
 #include <ostream>
 
+/*
+    Fixed-point format:
+    - Internal storage (_value) is an integer representing a value scaled by 2^_fracBits.
+    - Real value ≈ _value / (1 << _fracBits)
+*/
 class Fixed {
 	private:
-		int 				_value;
-		static const int	_fracBits = 8;
+		int 				_value;			// Fixed-point representation.
+		static const int	_fracBits = 8;	// Number of bits representin the fractional part of '_value'.
 	public:
 	// Constructors
-		Fixed();
-		Fixed(int input);
-		Fixed(float input);
-		Fixed(const Fixed &copy);
+		Fixed();					// Default
+		Fixed(int input);			// Integer
+		Fixed(float input);			// Float
+		Fixed(const Fixed &copy);	// Copy
 		
 	// Destructor
 		~Fixed();
@@ -43,10 +48,10 @@ class Fixed {
 		static Fixed&		max(Fixed& a, Fixed& b);
 		static const Fixed& max(const Fixed& a, const Fixed& b);
 
-	// Returns the '_value' exactly as it is stored.
+	// Returns the raw fixed-point '_value' of the object.
 		int		getRawBits( void ) const;
 
-	// Sets the '_value' of the fixed-point number.
+	// Sets the raw fixed-point '_value' of the object. 
 		void	setRawBits( int const raw );
 
 	// Converts the fixed-point '_value' to an integer representation.
@@ -57,6 +62,6 @@ class Fixed {
 };
 
 // '<<' insertion operator overload.
-std::ostream& operator << (std::ostream& out, const Fixed& value);
+std::ostream& operator << (std::ostream& out, const Fixed& fixed);
 
 #endif

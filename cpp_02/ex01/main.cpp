@@ -1,5 +1,21 @@
 #include <iostream>
 #include "Fixed.hpp"
+#include <iomanip>
+
+// void printBits(const Fixed& num)
+// {
+//     int value = num.getRawBits();
+
+//     for (int i = 31; i >= 0; --i)
+//     {
+//         std::cout << ((value >> i) & 1);
+
+//         if (i == 8) // boundary between integer and fractional bits
+//             std::cout << " | ";
+//     }
+
+//     std::cout << std::endl;
+// }
 
 int main( void ) {
 	Fixed a;
