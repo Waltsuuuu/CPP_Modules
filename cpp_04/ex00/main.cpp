@@ -1,4 +1,6 @@
 #include "Animal.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
 #include <iostream>
@@ -11,9 +13,17 @@ int main()
 	const Cat catObj;
 	const Dog dogObj;
 
-	std::cout << animalPtr->getType() << std::endl;
-	std::cout << dogPtr->getType() << std::endl;
-	std::cout << catPtr->getType() << std::endl;
+	std::cout << std::endl;
+
+	const WrongAnimal* wrongAnimalPtr = new WrongAnimal();
+	const WrongAnimal* wrongCatPtr = new WrongCat();
+	
+	std::cout << std::endl;
+
+	std::cout << wrongAnimalPtr->getType() << std::endl;
+	std::cout << wrongCatPtr->getType() << std::endl;
+	wrongAnimalPtr->makeSound();
+	wrongCatPtr->makeSound();
 	
 	std::cout << std::endl;
 	
