@@ -2,7 +2,7 @@
 #include <iostream>
 
 WrongCat::WrongCat() : WrongAnimal() {
-	_type = "WrongWrongCat";
+	_type = "WrongCat";
 }
 
 WrongCat::WrongCat(const WrongCat& copy) : WrongAnimal(copy) {
