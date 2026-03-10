@@ -2,9 +2,11 @@
 #include <iostream>
 
 Animal::Animal() : _type("Animal") {
+	std::cout << "Animal constructed" << std::endl;
 }
 
 Animal::Animal(const Animal& copy) : _type(copy._type) {
+	std::cout << "Animal copy constructed" << std::endl;
 }
 
 Animal& Animal::operator = (const Animal& other) {
@@ -15,6 +17,7 @@ Animal& Animal::operator = (const Animal& other) {
 }
 
 Animal::~Animal() {
+	std::cout << "Animal destructed" << std::endl;
 }
 
 void Animal::makeSound() const {

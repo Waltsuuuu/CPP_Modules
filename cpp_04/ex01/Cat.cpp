@@ -2,10 +2,12 @@
 #include <iostream>
 
 Cat::Cat() : Animal() {
+	std::cout << "Cat constructed" << std::endl;
 	_type = "Cat";
 }
 
 Cat::Cat(const Cat& copy) : Animal(copy) {
+	std::cout << "Cat copy constructed" << std::endl;
 }
 
 Cat& Cat::operator = (const Cat& other) {
@@ -13,6 +15,10 @@ Cat& Cat::operator = (const Cat& other) {
 		Animal::operator = (other);
 	}
 	return (*this);
+}
+
+Cat::~Cat() {
+	std::cout << "Cat destructed" << std::endl;
 }
 
 void Cat::makeSound() const {
