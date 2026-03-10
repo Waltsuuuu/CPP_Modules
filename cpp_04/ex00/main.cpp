@@ -33,10 +33,16 @@ int main()
 	
 	std::cout << std::endl;
 	
+	
 	catObj.makeSound();
 	dogObj.makeSound();
+
+	std::cout << std::endl;
+
 	delete animalPtr;
 	delete dogPtr;
 	delete catPtr;
+	delete wrongAnimalPtr;
+	delete wrongCatPtr;
 	return (0);
 }

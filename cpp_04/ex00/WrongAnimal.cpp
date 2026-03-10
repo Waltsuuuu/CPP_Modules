@@ -2,9 +2,11 @@
 #include <iostream>
 
 WrongAnimal::WrongAnimal() : _type("WrongAnimal") {
+	std::cout << "WrongAnimal constructed" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal& copy) : _type(copy._type) {
+	std::cout << "WrongAnimal copy constructed" << std::endl;
 }
 
 WrongAnimal& WrongAnimal::operator = (const WrongAnimal& other) {
@@ -15,6 +17,7 @@ WrongAnimal& WrongAnimal::operator = (const WrongAnimal& other) {
 }
 
 WrongAnimal::~WrongAnimal() {
+	std::cout << "WrongAnimal destructed" << std::endl;
 }
 
 void WrongAnimal::makeSound() const {
