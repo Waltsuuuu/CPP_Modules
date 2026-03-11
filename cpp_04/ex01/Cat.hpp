@@ -13,6 +13,9 @@ class Cat : public Animal {
 		Cat(const Cat& copy);
 		Cat& operator = (const Cat& other);
 		void makeSound() const override;
+
+		void setIdea(int index, const std::string& idea);
+		std::string getIdea(int index) const;
 };
 
 #endif

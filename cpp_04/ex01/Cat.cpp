@@ -15,6 +15,7 @@ Cat& Cat::operator = (const Cat& other) {
 		Animal::operator = (other);
 		*_brain = *other._brain;
 	}
+	std::cout << "Cat assignment operator called" << std::endl;
 	return (*this);
 }
 
@@ -25,4 +26,12 @@ Cat::~Cat() {
 
 void Cat::makeSound() const {
 	std::cout << "Meow" << std::endl;
+}
+
+void Cat::setIdea(int index, const std::string& idea) {
+	_brain->setIdea(index, idea);
+}
+
+std::string Cat::getIdea(int index) const {
+	return (_brain->getIdea(index));
 }
