@@ -27,7 +27,34 @@ int main()
 	std::cout << "\n--- CHECKING IF kitty IDEA INDEX 1 CHANGED --- \n" << std::endl; 
 	std::cout << kitty.getIdea(1) << std::endl;
 
-	std::cout << "\nEND OF MAIN \n" << std::endl;
-	
+	/* -------- SUBJECT REQUIRED TEST -------- */
+
+	std::cout << "\n--- CREATING ANIMAL ARRAY ---\n" << std::endl;
+
+	const int size = 6;
+	Animal* animals[size];
+
+	for (int i = 0; i < size / 2; i++)
+	{
+		std::cout << "Creating Dog " << i << std::endl;
+		animals[i] = new Dog();
+	}
+
+	for (int i = size / 2; i < size; i++)
+	{
+		std::cout << "Creating Cat " << i << std::endl;
+		animals[i] = new Cat();
+	}
+
+	std::cout << "\n--- DELETING ANIMAL ARRAY ---\n" << std::endl;
+
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << "Deleting animal " << i << std::endl;
+		delete animals[i];
+	}
+
+	std::cout << "\nEND OF MAIN\n" << std::endl;
+
 	return (0);
 }
