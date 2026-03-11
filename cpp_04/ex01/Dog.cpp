@@ -1,23 +1,26 @@
 #include "Dog.hpp"
 #include <iostream>
 
-Dog::Dog() : Animal() {
+Dog::Dog() : Animal(), _brain(new Brain()){
 	std::cout << "Dog constructed" << std::endl;
 	_type = "Dog";
 }
 
-Dog::Dog(const Dog& copy) : Animal(copy) {
+Dog::Dog(const Dog& copy) : Animal(copy), _brain(new Brain(*copy._brain)) {
+	std::cout << "Dog copy constructed" << std::endl;
 }
 
 Dog& Dog::operator = (const Dog& other) {
 	if (this != &other) {
 		Animal::operator = (other);
+		*_brain = *other._brain;
 	}
 	return (*this);
 }
 
 Dog::~Dog() {
 	std::cout << "Dog destructed" << std::endl;
+	delete _brain;
 }
 
 void Dog::makeSound() const {
