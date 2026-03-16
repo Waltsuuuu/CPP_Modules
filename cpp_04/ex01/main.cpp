@@ -28,6 +28,7 @@ int main()
 	std::cout << kitty.getIdea(1) << std::endl;
 
 	/* -------- SUBJECT REQUIRED TEST -------- */
+	std::cout << "\n--- SUBJECT TEST---\n" << std::endl;
 
 	std::cout << "\n--- CREATING ANIMAL ARRAY ---\n" << std::endl;
 
