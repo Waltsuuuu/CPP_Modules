@@ -28,13 +28,13 @@ Brain::~Brain() {
 }
 
 void Brain::setIdea(int index, const std::string& idea) {
-	if (index >= 0 && index <= 100) {
+	if (index >= 0 && index <= 99) {
 		_ideas[index] = idea;
 	}
 }
 
 std::string Brain::getIdea(int index) const {
-	if (index >= 0 && index <= 100) {
+	if (index >= 0 && index <= 99) {
 		return (_ideas[index]);
 	}
 	return ("No ideas here...");
