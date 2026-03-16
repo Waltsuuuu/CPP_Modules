@@ -7,12 +7,14 @@ Dog::Dog() : Animal() {
 }
 
 Dog::Dog(const Dog& copy) : Animal(copy) {
+	std::cout << "Dog copy constructed" << std::endl;
 }
 
 Dog& Dog::operator = (const Dog& other) {
 	if (this != &other) {
 		Animal::operator = (other);
 	}
+	std::cout << "Dog copy assignment called" << std::endl;
 	return (*this);
 }
 
