@@ -3,9 +3,29 @@
 
 int main() {
 	try {
-		Bureaucrat waldo2("Waldo2", 150);
-		std::cout << waldo2 << std::endl;
-		waldo2.incrementGrade();
+		std::cout << "--- GRADE TOO LOW TEST ---" << std::endl;
+		std::cout << "Instantiating Bureaucrat with grade > 150" << std::endl;
+		Bureaucrat waldo("Waldo", 151);
+	}
+	catch (const std::exception& e) {
+		std::cout << "Exception caught: " << e.what() << std::endl;
+	}
+
+	try {
+		std::cout << "\n--- GRADE TOO HIGH TEST ---" << std::endl;
+		std::cout << "Instantiating Bureaucrat with grade < 1" << std::endl;
+		Bureaucrat waldo("Waldo", 0);
+	}
+	catch (const std::exception& e) {
+		std::cout << "Exception caught: " << e.what() << std::endl;
+	}
+
+	try {
+		std::cout << "\n--- INCREMENTING TOO LOW ---" << std::endl;
+		std::cout << "Instantiating Bureaucrat with grade 150" << std::endl;
+		Bureaucrat waldo("Waldo", 150);
+		std::cout << waldo << std::endl;
+		waldo.decrementGrade();
 	}
 	catch (const std::exception& e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
