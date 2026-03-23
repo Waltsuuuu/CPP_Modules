@@ -23,3 +23,15 @@ Bureaucrat& Bureaucrat::operator = (const Bureaucrat& other) {
 Bureaucrat::~Bureaucrat() {
 }
 
+// --- Member Functions ---
+
+
+// --- Exceptions --- 
+
+const char* Bureaucrat::GradeTooHighException::what() const noexcept {
+	return ("Bureacrat grade is too high");
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const noexcept {
+	return ("Bureacrat grade is too low");
+}

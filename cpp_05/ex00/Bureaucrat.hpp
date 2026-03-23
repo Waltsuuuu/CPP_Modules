@@ -21,15 +21,11 @@ class Bureaucrat {
 
 		class GradeTooHighException : public std::exception {
 			public:
-				virtual const char* what() const throw() {
-					return ("Bureacrat grade is too high");
-				}
+				const char* what() const noexcept override;
 		};
 		class GradeTooLowException : public std::exception {
 			public:
-				virtual const char* what() const throw() {
-					return ("Bureaucrat grade is too low");
-				}
+				const char* what() const noexcept override;
 		};
 
 };
