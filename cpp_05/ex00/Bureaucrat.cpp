@@ -25,6 +25,27 @@ Bureaucrat::~Bureaucrat() {
 
 // --- Member Functions ---
 
+const std::string Bureaucrat::getName() const {
+	return (_name);
+}
+
+int	Bureaucrat::getGrade() const {
+	return (_grade);
+}
+
+void	Bureaucrat::incrementGrade()  {
+	_grade++;
+	if (_grade > 150) {
+		throw GradeTooHighException();
+	}
+}
+
+void	Bureaucrat::decrementGrade() {
+	_grade--;
+	if (_grade < 0) {
+		throw GradeTooLowException();
+	}
+}
 
 // --- Exceptions --- 
 
@@ -34,4 +55,10 @@ const char* Bureaucrat::GradeTooHighException::what() const noexcept {
 
 const char* Bureaucrat::GradeTooLowException::what() const noexcept {
 	return ("Bureacrat grade is too low");
+}
+
+// --- Insertion Operator Overload ---
+std::ostream& operator << (std::ostream& out, const Bureaucrat& bureaucrat) {
+	out << bureaucrat.getName() << ", bureacrat grade " << bureaucrat.getGrade();
+	return out;
 }

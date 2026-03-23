@@ -3,8 +3,9 @@
 
 int main() {
 	try {
-		Bureaucrat waldo("Waldo", 0);
-		Bureaucrat waldo2("Waldo2", 151);
+		Bureaucrat waldo2("Waldo2", 150);
+		std::cout << waldo2 << std::endl;
+		waldo2.incrementGrade();
 	}
 	catch (const std::exception& e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;

@@ -14,10 +14,10 @@ class Bureaucrat {
 		Bureaucrat& operator = (const Bureaucrat& other);
 		~Bureaucrat();
 
-		std::string getName();
-		void		setName();
-		void		incrementGrade();
-		void		decrementGrade();
+		const std::string	getName() const;
+		int					getGrade() const;
+		void				incrementGrade();
+		void				decrementGrade();
 
 		class GradeTooHighException : public std::exception {
 			public:
