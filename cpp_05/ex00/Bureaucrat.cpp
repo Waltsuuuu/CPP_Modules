@@ -42,7 +42,7 @@ void	Bureaucrat::incrementGrade()  {
 
 void	Bureaucrat::decrementGrade() {
 	_grade--;
-	if (_grade < 0) {
+	if (_grade < 1) {
 		throw GradeTooLowException();
 	}
 }
