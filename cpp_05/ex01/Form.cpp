@@ -64,4 +64,17 @@ const char* Form::GradeTooLowException::what() const noexcept {
 
 const char* Form::GradeTooHighException::what() const noexcept {
 	return ("Grade too high!");
+}																									
+
+// --- Insertion Operator Overload ---
+
+std::ostream& operator << (std::ostream& out, const Form& form) {
+	out << "Form: " << form.getName() << std::endl
+		<< "Grade to sign: " << form.getGradeToSign() << std::endl
+		<< "Grade to execute: " << form.getGradeToExecute() << std::endl;
+	if (form.getIsSigned())
+		out << "Signed: Yes" << std::endl;
+	else
+		out << "Signed: No" << std::endl;
+	return (out);
 }
