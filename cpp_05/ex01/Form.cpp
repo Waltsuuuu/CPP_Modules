@@ -42,15 +42,10 @@ int Form::getGradeToExecute() const {
 }
 
 void	Form::beSigned(Bureaucrat& bureaucrat) {
-	if (bureaucrat.getGrade() > this->getGradeToSign()) {
-		std::cout	<< bureaucrat.getName() << " couldn't sign " 
-					<< this->getName() 		<< " because their grade is too low.\n";
+	if (bureaucrat.getGrade() > this->getGradeToSign())
 		throw Form::GradeTooLowException();
-	}
 	if (this->_isSigned) {
-		std::cout	<< bureaucrat.getName() << " couldn't sign " 
-					<< this->getName() 		<< " because it already contains a signature.\n";
-		return;
+		throw Form::GradeTooLowException();
 	}
 	this->_isSigned = true;
 	std::cout	<< bureaucrat.getName() << " signed " << this->getName() << std::endl;
@@ -59,12 +54,16 @@ void	Form::beSigned(Bureaucrat& bureaucrat) {
 // --- Exceptions ---
 
 const char* Form::GradeTooLowException::what() const noexcept {
-	return ("Grade too low!");
+	return ("grade too low!");
 }
 
 const char* Form::GradeTooHighException::what() const noexcept {
-	return ("Grade too high!");
-}																									
+	return ("grade too high!");
+}
+
+const char* Form::AlreadySignedException::what() const noexcept {
+	return ("form already signed");
+}		
 
 // --- Insertion Operator Overload ---
 

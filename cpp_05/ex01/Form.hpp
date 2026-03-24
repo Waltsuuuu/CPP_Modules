@@ -32,6 +32,11 @@ class Form {
 			public:
 				const char* what() const noexcept override;
 		};
+
+		class AlreadySignedException : public std::exception {
+			public:
+				const char* what() const noexcept override;
+		};
 };
 
 std::ostream& operator << (std::ostream& out, const Form& form);
