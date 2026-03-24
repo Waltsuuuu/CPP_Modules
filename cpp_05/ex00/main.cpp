@@ -4,7 +4,7 @@
 int main() {
 	try {
 		std::cout << "--- GRADE TOO LOW TEST ---" << std::endl;
-		std::cout << "pting to instantiate Bureaucrat with grade > 150..." << std::endl;
+		std::cout << "Attempting to instantiate Bureaucrat with grade > 150..." << std::endl;
 		Bureaucrat waldo("Waldo", 151);
 	}
 	catch (const std::exception& e) {
