@@ -2,7 +2,7 @@
 #include "Bureaucrat.hpp"
 
 Form::Form(const std::string name, const int gradeToSign, const int gradeToExecute)
-	: _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
+	: _name(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
 	if (_gradeToExecute > 150 || _gradeToSign > 150)
 		throw GradeTooLowException();
 	if (_gradeToExecute < 1 || _gradeToSign < 1)

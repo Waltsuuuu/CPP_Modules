@@ -28,7 +28,7 @@ int main() {
 		Form Contract("Contract", 10, 10);
 		Bureaucrat Bob("Bob", 20);
 		
-		Contract.beSigned(Bob);
+		Bob.signForm(Contract);
 	}
 	catch (std::exception &e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
