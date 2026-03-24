@@ -1,58 +1,48 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include <iostream>
 
 int main() {
+	std::cout << "--- GRADE TOO LOW TEST ---" << std::endl;
+	std::cout << "Attempting to instantiate Form with grade > 150..." << std::endl;
 	try {
-		std::cout << "--- GRADE TOO LOW TEST ---" << std::endl;
-		std::cout << "pting to instantiate Bureaucrat with grade > 150..." << std::endl;
-		Bureaucrat waldo("Waldo", 151);
+		
+		Form Contract("Contract", 151, 1);
 	}
-	catch (const std::exception& e) {
+	catch (std::exception &e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
 	}
 
+	std::cout << "\n--- GRADE TOO HIGH TEST ---" << std::endl;
+	std::cout << "Attempting to instantiate Form with grade < 1..." << std::endl;	
 	try {
-		std::cout << "\n--- GRADE TOO HIGH TEST ---" << std::endl;
-		std::cout << "Attempting to instantiate Bureaucrat with grade < 1..." << std::endl;
-		Bureaucrat waldo("Waldo", 0);
+		Form Contract("Contract", 0, 1);
 	}
-	catch (const std::exception& e) {
+	catch (std::exception &e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
 	}
 
+	std::cout << "\n--- SIGNING GRADE TOO LOW TEST ---" << std::endl;
+	std::cout << "Attempting to sign form with too low grade..." << std::endl;
 	try {
-		std::cout << "\n--- DECREMENTING TOO LOW ---" << std::endl;
-		std::cout << "Instantiating Bureaucrat with grade 150 and attempting to decrement grade..." << std::endl;
-		Bureaucrat waldo("Waldo", 150);
-		std::cout << waldo << std::endl;
-		waldo.decrementGrade();
+		Form Contract("Contract", 10, 10);
+		Bureaucrat Bob("Bob", 20);
+		
+		Contract.beSigned(Bob);
 	}
-	catch (const Bureaucrat::GradeTooLowException& e) {
+	catch (std::exception &e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
 	}
 
+	std::cout << "\n--- SUCCESSFUL SIGNING TEST ---" << std::endl;
 	try {
-		std::cout << "\n--- INCREMENTING TOO HIGH ---" << std::endl;
-		std::cout << "Instantiating Bureaucrat with grade 1 and attempting to increment grade..." << std::endl;
-		Bureaucrat waldo("Waldo", 1);
-		std::cout << waldo << std::endl;
-		waldo.incrementGrade();
+		
+		Form Contract("Contract", 10, 10);
+		Bureaucrat Bob("Bob", 10);
+		
+		Contract.beSigned(Bob);
 	}
-	catch (const Bureaucrat::GradeTooHighException& e) {
-		std::cout << "Exception caught: " << e.what() << std::endl;
-	}
-
-	try {
-		std::cout << "\n--- VALID BUREAUCRAT ---" << std::endl;
-		std::cout << "Instantiating Bureaucrat with grade 75 and incrementing / decrementing grade..." << std::endl;
-		Bureaucrat waldo("Waldo", 75);
-		std::cout << waldo << std::endl;
-		waldo.incrementGrade();
-		std::cout << waldo << std::endl;
-		waldo.decrementGrade();
-		std::cout << waldo << std::endl;
-	}
-	catch (const std::exception& e) {
+	catch (std::exception &e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
 	}
 	return 0;
