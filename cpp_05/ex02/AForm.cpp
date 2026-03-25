@@ -10,7 +10,7 @@ AForm::AForm(const std::string name, const int gradeToSign, const int gradeToExe
 }
 
 AForm::AForm(const AForm& copy)
-	: _name(copy._name), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute) {
+	: _name(copy._name), _isSigned(copy._isSigned), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute) {
 }
 
 AForm& AForm::operator = (const AForm& other) {
