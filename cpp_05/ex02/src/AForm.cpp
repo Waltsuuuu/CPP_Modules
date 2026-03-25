@@ -61,11 +61,11 @@ const char* AForm::GradeTooHighException::what() const noexcept {
 }
 
 const char* AForm::AlreadySignedException::what() const noexcept {
-	return ("form already signed");
+	return ("form cannot be signed since it already contains a signature!");
 }
 
 const char* AForm::FormNotSignedException::what() const noexcept {
-	return ("form not signed");
+	return ("form needs to be signed before executing!");
 }
 
 // --- Insertion Operator Overload ---

@@ -1,12 +1,13 @@
 NAME    = Bureaucrat
 
 CXX     = c++
-CXXFLAGS= -Wall -Wextra -Werror -std=c++17
+CXXFLAGS= -Wall -Wextra -Werror -std=c++17 -Iinc
 
-SRCS    = 	main.cpp \
-			Bureaucrat.cpp \
-			AForm.cpp \
-			ShrubberyCreationForm.cpp \
+SRCS    = 	src/main.cpp \
+			src/Bureaucrat.cpp \
+			src/AForm.cpp \
+			src/ShrubberyCreationForm.cpp \
+			src/RobotomyRequestForm.cpp \
 			
 OBJS    = $(SRCS:.cpp=.o)
 
