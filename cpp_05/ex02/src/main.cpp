@@ -37,7 +37,7 @@ int main() {
 		Bureaucrat Bob("Bob", 5);
 	
 		Bob.signAForm(PresForm);
-		PresForm.execute(Bob);
+		Bob.executeForm(PresForm);
 	}
 	catch (std::exception& e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
