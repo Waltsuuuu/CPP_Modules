@@ -48,7 +48,7 @@ int main() {
 		Form Contract("Contract", 10, 10);
 		Bureaucrat Bob("Bob", 10);
 		
-		Contract.beSigned(Bob);
+		Bob.signForm(Contract);
 
 		std::cout << std::endl;
 		std::cout << Contract << std::endl;
