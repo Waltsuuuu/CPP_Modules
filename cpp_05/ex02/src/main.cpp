@@ -2,6 +2,7 @@
 #include "AForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 #include <iostream>
 
 int main() {
@@ -24,6 +25,19 @@ int main() {
 	
 		Bob.signAForm(RoboForm);
 		RoboForm.execute(Bob);
+	}
+	catch (std::exception& e) {
+		std::cout << "Exception caught: " << e.what() << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	try {
+		PresidentialPardonForm PresForm("WAZAAAA");
+		Bureaucrat Bob("Bob", 5);
+	
+		Bob.signAForm(PresForm);
+		PresForm.execute(Bob);
 	}
 	catch (std::exception& e) {
 		std::cout << "Exception caught: " << e.what() << std::endl;
