@@ -10,7 +10,7 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExecu
 }
 
 Form::Form(const Form& copy)
-	: _name(copy._name), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute) {
+	: _name(copy._name), _isSigned(copy._isSigned), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute) {
 }
 
 Form& Form::operator = (const Form& other) {
