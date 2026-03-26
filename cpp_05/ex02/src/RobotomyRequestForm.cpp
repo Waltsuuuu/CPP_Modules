@@ -3,8 +3,8 @@
 #include <fstream>
 #include <ctime>
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm",
-	72, 45) {
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) 
+	: AForm("RobotomyRequestForm", 72, 45) {
 	_target = target;
 }
 
