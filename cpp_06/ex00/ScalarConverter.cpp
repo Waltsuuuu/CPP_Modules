@@ -34,6 +34,8 @@ ScalarConverter::InputType ScalarConverter::detectInputType(const std::string& i
         return ScalarConverter::INT;
     if (isFloat(input))
         return ScalarConverter::FLOAT;
+    if (isDouble(input))
+        return ScalarConverter::DOUBLE;
     else
         return ScalarConverter::INVALID;
 }
@@ -98,6 +100,51 @@ bool ScalarConverter::isFloat(const std::string& input) {
         i++;
 
     while (i < input.length() - 1) {
+        if (input[i] == '.') {
+            if (hasDot)
+                return false;
+            hasDot = true;
+        }
+        else if(std::isdigit(input[i])) {
+            if (!hasDot)
+                hasDigitBeforeDot = true;
+            else
+                hasDigitAfterDot = true;
+        }
+        else
+            return false;
+        i++;
+    }
+
+    return hasDot && hasDigitBeforeDot && hasDigitAfterDot;
+}
+
+// Double rules:
+// - Accepts pseudo-literals: nan, +inf, -inf
+// - May start with '+' or '-'
+// - Must contain exactly one '.'
+// - Must have digits around the '.'
+// - Must not end with 'f'
+// - Everything else must be digits
+bool ScalarConverter::isDouble(const std::string& input) {
+    if (input == "nan" || input == "+inf" || input == "-inf")
+        return true;
+    
+    if (input.empty())
+        return false;
+
+    size_t  i = 0;
+    bool    hasDot = false;
+    bool    hasDigitBeforeDot = false;
+    bool    hasDigitAfterDot = false;
+
+    if (input[i] == '+' || input[i] == '-')
+        i++;
+
+    if (i == input.length())
+        return false;
+
+    while (i < input.length()) {
         if (input[i] == '.') {
             if (hasDot)
                 return false;
