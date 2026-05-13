@@ -15,7 +15,7 @@ class ScalarConverter {
         };
     
         static void         convert(const std::string& inpt_str);
-        
+
     private:
         ScalarConverter();
         ScalarConverter(const ScalarConverter& other);
@@ -24,6 +24,7 @@ class ScalarConverter {
 
         static InputType    detectInputType(const std::string& input);
         static bool         isChar(const std::string& input);
+        static bool         isInt(const std::string& input);
     
         
 };
