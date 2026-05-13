@@ -4,13 +4,28 @@
 #include <string>
 
 class ScalarConverter {
+    public:
+    
+        enum InputType {
+            CHAR,
+            INT,
+            FLOAT,
+            DOUBLE,
+            INVALID
+        };
+    
+        static void         convert(const std::string& inpt_str);
+        
     private:
         ScalarConverter();
         ScalarConverter(const ScalarConverter& other);
         ScalarConverter& operator=(const ScalarConverter& other);
         ~ScalarConverter();
-    public:
-        static void convert(const std::string& inpt_str);
+
+        static InputType    detectInputType(const std::string& input);
+        static bool         isChar(const std::string& input);
+    
+        
 };
 
 #endif
