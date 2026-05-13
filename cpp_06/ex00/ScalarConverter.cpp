@@ -88,6 +88,9 @@ bool ScalarConverter::isFloat(const std::string& input) {
     if (input == "nanf" || input == "+inff" || input == "-inff")
         return true;
 
+    if (input.empty())
+        return false;
+
     if (input[input.length() - 1] != 'f')
         return false;
 
