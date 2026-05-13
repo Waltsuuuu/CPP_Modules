@@ -32,6 +32,8 @@ ScalarConverter::InputType ScalarConverter::detectInputType(const std::string& i
         return ScalarConverter::CHAR;
     if (isInt(input))
         return ScalarConverter::INT;
+    if (isFloat(input))
+        return ScalarConverter::FLOAT;
     else
         return ScalarConverter::INVALID;
 }
@@ -71,4 +73,46 @@ bool ScalarConverter::isInt(const std::string& input) {
     }
 
     return true;
+}
+
+// Float rules:
+// - Accepts pseudo-literals: nanf, +inff, -inff
+// - May start with '+' or '-'
+// - Must end with 'f'
+// - Must contain exactly one '.'
+// - Must have digits around the '.'
+// - Everything else must be digits
+bool ScalarConverter::isFloat(const std::string& input) {
+    if (input == "nanf" || input == "+inff" || input == "-inff")
+        return true;
+
+    if (input[input.length() - 1] != 'f')
+        return false;
+
+    size_t  i = 0;
+    bool    hasDot = false;
+    bool    hasDigitBeforeDot = false;
+    bool    hasDigitAfterDot = false;
+
+    if (input[i] == '+' || input[i] == '-')
+        i++;
+
+    while (i < input.length() - 1) {
+        if (input[i] == '.') {
+            if (hasDot)
+                return false;
+            hasDot = true;
+        }
+        else if(std::isdigit(input[i])) {
+            if (!hasDot)
+                hasDigitBeforeDot = true;
+            else
+                hasDigitAfterDot = true;
+        }
+        else
+            return false;
+        i++;
+    }
+
+    return hasDot && hasDigitBeforeDot && hasDigitAfterDot;
 }
