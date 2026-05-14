@@ -24,20 +24,25 @@ void ScalarConverter::convert(const std::string& input) {
     InputType type = detectInputType(input);
     std::cout << "Type: " << type << std::endl;
 
-    double value = 0;
-    if (type == CHAR)
-        value = static_cast<double>(input[0]);
-    else if (type == INT)
-        value = std::atoi(input.c_str());
-    else if (type == FLOAT)
-        value = std::atof(input.c_str());
-    else if (type == DOUBLE)
-        value = std::atof(input.c_str());
-    else {
+    if (type == INVALID){
         std::cout << "Invalid input" << std::endl;
         return ;
     }
+    double value = inputToDouble(type, input);
     std::cout << "Value: " << value << std::endl;
+
+}
+
+double ScalarConverter::inputToDouble(InputType type, const std::string& input) {
+    if (type == CHAR)
+        return (static_cast<double>(input[0]));
+    if (type == INT)
+        return (std::atoi(input.c_str()));
+    if (type == FLOAT)
+        return (std::atof(input.c_str()));
+    if (type == DOUBLE)
+         return (std::atof(input.c_str()));
+    return 0;
 }
 
 // Detect input type (CHAR, INT, FLOAT, DOUBLE, INVALID)

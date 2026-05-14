@@ -28,6 +28,8 @@ class ScalarConverter {
         static bool         isFloat(const std::string& input);
         static bool         isDouble(const std::string& input);
         
+        static double       inputToDouble(InputType type, const std::string& input);
+        static void         printChar(double value);
 };
 
 #endif
