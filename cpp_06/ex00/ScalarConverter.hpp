@@ -14,7 +14,7 @@ class ScalarConverter {
             INVALID
         };
     
-        static void         convert(const std::string& inpt_str);
+        static void         convert(const std::string& input);
 
     private:
         ScalarConverter();
