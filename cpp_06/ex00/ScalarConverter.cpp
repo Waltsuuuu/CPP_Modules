@@ -23,14 +23,39 @@ void ScalarConverter::convert(const std::string& input) {
 
     InputType type = detectInputType(input);
     std::cout << "Type: " << type << std::endl;
-
     if (type == INVALID){
         std::cout << "Invalid input" << std::endl;
         return ;
     }
+
     double value = inputToDouble(type, input);
     std::cout << "Value: " << value << std::endl;
 
+    printChar(value);
+}
+
+void ScalarConverter::printChar(double value) {
+    // nan check (every value = itself, except nan)
+    if (value != value) {
+        std::cout << "char: impossible" << std::endl;
+        return ;
+    }
+
+    // ASCII range check
+    if (value < 0 || value > 127) {
+        std::cout << "char: impossible" << std::endl;
+        return ;
+    }
+
+    char c = static_cast<char>(value);
+    
+    // Non-printable check
+    if (!std::isprint(c)) {
+        std::cout << "char: Non displayable" << std::endl;
+        return ;
+    }
+
+    std::cout << "char: '" << c << "'" << std::endl;
 }
 
 double ScalarConverter::inputToDouble(InputType type, const std::string& input) {
