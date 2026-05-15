@@ -1,8 +1,9 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
-#include <cctype> // isdigit, isprint
-#include <limits> // int_min, int_max
-#include <iomanip> // setprecision 
+#include <cstdlib>	// atof
+#include <cctype>	// isdigit, isprint
+#include <limits>	// int_min, int_max
+#include <iomanip>	// setprecision 
 
 ScalarConverter::ScalarConverter(){
 }
