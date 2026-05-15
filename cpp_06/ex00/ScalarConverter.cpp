@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cctype> // isdigit, isprint
 #include <limits> // int_min, int_max
+#include <iomanip> // setprecision 
 
 ScalarConverter::ScalarConverter(){
 }
@@ -31,6 +32,7 @@ void ScalarConverter::convert(const std::string& input) {
 
     printChar(value);
 	printInt(value);
+	printFloat(value);
 }
 
 double ScalarConverter::inputToDouble(InputType type, const std::string& input) {
@@ -225,4 +227,28 @@ void ScalarConverter::printInt(double value) {
 	int int_val = static_cast<int>(value);
 
 	std::cout << "int: " << int_val << std::endl;
+}
+
+void ScalarConverter::printFloat(double value) {
+	if (value != value) {
+		std::cout << "float: nanf" << std::endl;
+		return ;
+	}
+
+	float float_val = static_cast<float>(value);
+
+	if (float_val == std::numeric_limits<float>::infinity()) {
+		std::cout << "float: +inff" << std::endl;
+		return ;
+	}
+	if (float_val == -std::numeric_limits<float>::infinity()) {
+		std::cout << "float: -inff" << std::endl;
+		return ;
+	}
+
+	// Whole number check
+	if (float_val == static_cast<int>(float_val))
+		std::cout << std::fixed << std::setprecision(1);
+	
+	std::cout << "float: " << float_val << "f" << std::endl;
 }

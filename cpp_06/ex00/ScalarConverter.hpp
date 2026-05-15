@@ -31,6 +31,7 @@ class ScalarConverter {
         static double       inputToDouble(InputType type, const std::string& input);
         static void         printChar(double value);
 		static void			printInt(double value);
+		static void			printFloat(double value);
 };
 
 #endif
