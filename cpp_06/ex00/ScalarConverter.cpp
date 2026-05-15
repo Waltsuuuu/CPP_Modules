@@ -260,11 +260,11 @@ void ScalarConverter::printDouble(double value) {
 		return ;
 	}
 
-	if (value == std::numeric_limits<float>::infinity()) {
+	if (value == std::numeric_limits<double>::infinity()) {
 		std::cout << "double: +inf" << std::endl;
 		return ;
 	}
-	if (value == -std::numeric_limits<float>::infinity()) {
+	if (value == -std::numeric_limits<double>::infinity()) {
 		std::cout << "double: -inf" << std::endl;
 		return ;
 	}
