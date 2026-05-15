@@ -1,6 +1,7 @@
 #include "ScalarConverter.hpp"
 #include <iostream>
 #include <cctype> // isdigit, isprint
+#include <limits> // int_min, int_max
 
 ScalarConverter::ScalarConverter(){
 }
@@ -19,43 +20,17 @@ ScalarConverter::~ScalarConverter(){
 
 // Converter 
 void ScalarConverter::convert(const std::string& input) {
-    std::cout << "Input: " << input << std::endl;
 
     InputType type = detectInputType(input);
-    std::cout << "Type: " << type << std::endl;
     if (type == INVALID){
         std::cout << "Invalid input" << std::endl;
         return ;
     }
 
     double value = inputToDouble(type, input);
-    std::cout << "Value: " << value << std::endl;
 
     printChar(value);
-}
-
-void ScalarConverter::printChar(double value) {
-    // nan check (every value = itself, except nan)
-    if (value != value) {
-        std::cout << "char: impossible" << std::endl;
-        return ;
-    }
-
-    // ASCII range check
-    if (value < 0 || value > 127) {
-        std::cout << "char: impossible" << std::endl;
-        return ;
-    }
-
-    char c = static_cast<char>(value);
-    
-    // Non-printable check
-    if (!std::isprint(c)) {
-        std::cout << "char: Non displayable" << std::endl;
-        return ;
-    }
-
-    std::cout << "char: '" << c << "'" << std::endl;
+	printInt(value);
 }
 
 double ScalarConverter::inputToDouble(InputType type, const std::string& input) {
@@ -209,4 +184,45 @@ bool ScalarConverter::isDouble(const std::string& input) {
     }
 
     return hasDot && hasDigitBeforeDot && hasDigitAfterDot;
+}
+
+// Print functions
+void ScalarConverter::printChar(double value) {
+    // nan check (every value = itself, except nan)
+    if (value != value) {
+        std::cout << "char: impossible" << std::endl;
+        return ;
+    }
+
+    // ASCII range check
+    if (value < 0 || value > 127) {
+        std::cout << "char: impossible" << std::endl;
+        return ;
+    }
+
+    char c = static_cast<char>(value);
+    
+    // Non-printable check
+    if (!std::isprint(c)) {
+        std::cout << "char: Non displayable" << std::endl;
+        return ;
+    }
+
+    std::cout << "char: '" << c << "'" << std::endl;
+}
+
+void ScalarConverter::printInt(double value) {
+	if (value != value) {
+		std::cout << "char: impossible" << std::endl;
+        return ;
+	}
+
+	if (value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max()) {
+		std::cout << "int: impossible" << std::endl;
+		return ;
+	}
+
+	int int_val = static_cast<int>(value);
+
+	std::cout << "int: " << int_val << std::endl;
 }
