@@ -216,7 +216,7 @@ void ScalarConverter::printChar(double value) {
 
 void ScalarConverter::printInt(double value) {
 	if (value != value) {
-		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
         return ;
 	}
 
