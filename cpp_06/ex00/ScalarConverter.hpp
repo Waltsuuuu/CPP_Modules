@@ -32,6 +32,7 @@ class ScalarConverter {
         static void         printChar(double value);
 		static void			printInt(double value);
 		static void			printFloat(double value);
+		static void			printDouble(double value);
 };
 
 #endif

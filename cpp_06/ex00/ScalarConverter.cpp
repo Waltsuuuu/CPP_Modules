@@ -33,13 +33,14 @@ void ScalarConverter::convert(const std::string& input) {
     printChar(value);
 	printInt(value);
 	printFloat(value);
+	printDouble(value);
 }
 
 double ScalarConverter::inputToDouble(InputType type, const std::string& input) {
     if (type == CHAR)
         return (static_cast<double>(input[0]));
     if (type == INT)
-        return (std::atoi(input.c_str()));
+        return (std::atof(input.c_str()));
     if (type == FLOAT)
         return (std::atof(input.c_str()));
     if (type == DOUBLE)
@@ -251,4 +252,26 @@ void ScalarConverter::printFloat(double value) {
 		std::cout << std::fixed << std::setprecision(1);
 	
 	std::cout << "float: " << float_val << "f" << std::endl;
+}
+
+void ScalarConverter::printDouble(double value) {
+	if (value != value) {
+		std::cout << "double: nan" << std::endl;
+		return ;
+	}
+
+	if (value == std::numeric_limits<float>::infinity()) {
+		std::cout << "double: +inf" << std::endl;
+		return ;
+	}
+	if (value == -std::numeric_limits<float>::infinity()) {
+		std::cout << "double: -inf" << std::endl;
+		return ;
+	}
+
+	// Whole number check
+	if (value == static_cast<int>(value))
+		std::cout << std::fixed << std::setprecision(1);
+	
+	std::cout << "double: " << value << std::endl;
 }
