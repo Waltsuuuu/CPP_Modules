@@ -5,6 +5,6 @@
 int main() {
 	srand(time(NULL));
 	Base* random = generate();
-	(void)random;
+	identify(random);
 	return 0;
 }

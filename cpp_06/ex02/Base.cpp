@@ -19,3 +19,22 @@ Base* generate(void) {
 	std::cout << "Generated C class" << std::endl; 
 	return new Cclass;
 }
+
+void identify(Base* p) {
+	if (!p) {
+		std::cout << "Pointer is null" << std::endl;
+		return;
+	}
+	if (dynamic_cast<Aclass*>(p)) {
+		std::cout << "Pointer is class A" << std::endl;
+	}
+	else if (dynamic_cast<Bclass*>(p)) {
+		std::cout << "Pointer is class B" << std::endl;
+	}
+	else if (dynamic_cast<Cclass*>(p)) {
+		std::cout << "Pointer is class C" << std::endl;
+	}
+	else {
+		std::cout << "Unknown pointer" << std::endl;
+	}
+}
