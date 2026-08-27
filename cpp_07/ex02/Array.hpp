@@ -1,14 +1,16 @@
 #ifndef ARRAY_HPP
 # define ARRAY_HPP
 
+#include <exception>
+
 // Generic array class.
 // Array<int> numbers(5) -- Makes an array that holds 5 ints.
 // Array<std::string> names(5) -- Makes an array that holds 5 strings.
 template <typename T>
 class Array {
 	private:
-		T* _data;
-		unsigned int _size;
+		T*				_data;
+		unsigned int	_size;
 
 	public:
 		Array();								// Empty array
@@ -20,7 +22,10 @@ class Array {
 		T &operator[](unsigned int index);				// Access array elements (ex. arr[0])
 		const T &operator[](unsigned int index) const;	// Indexing a const Array
 
-		unsigned int size() const				// Returns _size
+		unsigned int size() const;				// Returns _size
 };
+
+#include "Array.tpp"
+
 
 #endif
