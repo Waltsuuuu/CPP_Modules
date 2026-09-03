@@ -2,13 +2,16 @@
 #include <iostream>
 
 int main() {
-	Span sp(3);
+	Span sp(5);
+
+	sp.addNumber(6);
+	sp.addNumber(3);
+	sp.addNumber(17);
+	sp.addNumber(9);
+	sp.addNumber(11);
 
 	try {
-		sp.addNumber(10);
-		sp.addNumber(20);
-		sp.addNumber(30);
-		sp.addNumber(40);
+		std::cout << "Longest span: " << sp.longestSpan() << std::endl;
 	}
 	catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
