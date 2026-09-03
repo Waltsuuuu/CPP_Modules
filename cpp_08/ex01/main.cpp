@@ -11,6 +11,7 @@ int main() {
 	sp.addNumber(11);
 
 	try {
+		std::cout << "Shortest span: " << sp.shortestSpan() << std::endl;
 		std::cout << "Longest span: " << sp.longestSpan() << std::endl;
 	}
 	catch (const std::exception& e) {

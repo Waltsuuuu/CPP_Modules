@@ -34,3 +34,25 @@ unsigned int Span::longestSpan() {
 	return (max - min);
 }
 
+// Sort
+// Compare neighboring values
+// Return the smallest difference
+unsigned int Span::shortestSpan() {
+	if (_numbers.size() < 2)
+		throw std::runtime_error("Not enough numbers in span.");
+	
+	std::vector<int> sorted = _numbers;
+
+	std::sort(sorted.begin(), sorted.end());
+
+	unsigned int shortest = sorted[1] - sorted[0];
+
+	for (unsigned int i = 1; i < sorted.size() - 1; i++) {
+		unsigned int span = sorted[i + 1] - sorted[i];
+		if (span < shortest)
+			shortest = span;
+	}
+
+	return shortest;
+}
+
