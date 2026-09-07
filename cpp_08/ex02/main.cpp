@@ -1,5 +1,6 @@
 #include "MutantStack.hpp"
 #include <iostream>
+#include <list>
 
 static void printHeader(const std::string& title)
 {
@@ -112,6 +113,46 @@ int main()
 
 	std::cout << "Size: "
 			  << mstack.size() << std::endl;
+
+	std::cout << "\n========================================\n";
+	std::cout << "TEST 8: Compare with std::list" << std::endl;
+	std::cout << "========================================\n";
+	
+	MutantStack<int> ms;
+	std::list<int> lst;
+	
+	// Add identical values
+	ms.push(5);
+	ms.push(17);
+	ms.push(3);
+	ms.push(5);
+	ms.push(737);
+	ms.push(0);
+	
+	lst.push_back(5);
+	lst.push_back(17);
+	lst.push_back(3);
+	lst.push_back(5);
+	lst.push_back(737);
+	lst.push_back(0);
+	
+	// MutantStack
+	std::cout << "MutantStack contents:" << std::endl;
+	
+	for (MutantStack<int>::iterator it = ms.begin();
+		it != ms.end(); ++it)
+	{
+		std::cout << "  " << *it << std::endl;
+	}
+	
+	// std::list
+	std::cout << "\nstd::list contents:" << std::endl;
+	
+	for (std::list<int>::iterator it = lst.begin();
+		it != lst.end(); ++it)
+	{
+		std::cout << "  " << *it << std::endl;
+	}
 
 
 	printHeader("ALL TESTS FINISHED");
