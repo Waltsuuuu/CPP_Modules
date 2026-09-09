@@ -112,7 +112,14 @@ void BitcoinExchange::processInput(const std::string& filename) {
 			continue ;
 		}
 
-		std::cout << "Date: " << date << " | Value: " << value << std::endl;
+		try {
+			double rate = getRate(date);
+
+			std::cout << date << " => " << value << " = " << (value * rate) << std::endl; 
+		}
+		catch (const std::exception& e) {
+			std::cerr << e.what() << std::endl;
+		}
 	}
 }
 
@@ -150,4 +157,22 @@ bool BitcoinExchange::isValidDate(const std::string& date) const {
 	catch (const std::exception& e) {
 		return false;
 	}
+}
+
+double BitcoinExchange::getRate(const std::string& date) const {
+	// Find first key  that is greater than or equal to 'date', 
+	std::map<std::string, double>::const_iterator it = _rates.lower_bound(date);
+
+	// Exact date found
+	if (it != _rates.end() && it->first == date)
+		return it->second;
+
+	// Request date is earlier than the first date in the database
+	if (it == _rates.begin())
+		throw std::runtime_error("Error: no exchange rate available.");
+
+	// move to the closest earlier date
+	--it;
+
+	return it->second;
 }

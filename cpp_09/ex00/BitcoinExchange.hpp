@@ -18,6 +18,7 @@ class BitcoinExchange {
 		void processInput(const std::string& filename);		// input.txt handler
 
 		bool isValidDate(const std::string& date) const;
+		double getRate(const std::string& date) const;
 };
 
 #endif
