@@ -14,7 +14,10 @@ class BitcoinExchange {
 		BitcoinExchange& operator=(const BitcoinExchange& other);
 		~BitcoinExchange();
 
-		void loadData(const std::string& filename);
+		void loadData(const std::string& filename);			// data.csv handler
+		void processInput(const std::string& filename);		// input.txt handler
+
+		bool isValidDate(const std::string& date) const;
 };
 
 #endif

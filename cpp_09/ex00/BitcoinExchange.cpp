@@ -2,6 +2,9 @@
 
 #include <fstream>
 #include <stdexcept>
+#include <iostream>
+#include <sstream>
+#include <chrono>
 
 BitcoinExchange::BitcoinExchange() {}
 
@@ -57,5 +60,94 @@ void BitcoinExchange::loadData(const std::string& filename) {
 		catch (const std::exception& e) {
 			throw std::runtime_error("Error: invalid data.");
 		}
+	}
+}
+
+void BitcoinExchange::processInput(const std::string& filename) {
+	std::ifstream file(filename.c_str());
+
+	if (!file.is_open())
+		throw std::runtime_error("Error: could not open input file.");
+
+	std::string line;
+
+	// Skip header line: "date | value"
+	std::getline(file, line);
+
+	while (std::getline(file, line)) {
+		std::istringstream iss(line);
+
+		std::string	date;		// "2011-01-03"
+		char		separator;	// "|"
+		double		value;		// "3.5"
+
+		// Extract date, separator, value. Whitespace skipped.
+		if (!(iss >> date >> separator >> value) || separator != '|') {
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue ;
+		}
+
+		// Make sure no extra content after 'value'
+		std::string extra;
+		if (iss >> extra) {
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue ;
+		}
+
+		// Validate date
+		if (!isValidDate(date)) {
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue ;
+		}
+
+		// Value must not exceed 1000
+		if (value > 1000) {
+			std::cerr << "Error: too large a number." << std::endl;
+			continue ;
+		}
+
+		// Value must not be negative
+		if (value < 0) {
+			std::cerr << "Error: not a positive number." << std::endl;
+			continue ;
+		}
+
+		std::cout << "Date: " << date << " | Value: " << value << std::endl;
+	}
+}
+
+bool BitcoinExchange::isValidDate(const std::string& date) const {
+	// Must be exactly YYYY-MM-DD
+	if (date.length() != 10)
+		return false;
+
+	// '-' must be in the correct positions
+	if (date[4] != '-' || date[7] != '-')
+		return false;
+
+	// All other characters must be digits
+	for (size_t i = 0; i < date.length(); i++) {
+		if (i == 4 || i == 7)
+			continue;
+
+		if (!std::isdigit(static_cast<unsigned char>(date[i])))
+			return false;
+	}
+
+	try {
+		int year = std::stoi(date.substr(0, 4));
+		unsigned int month = std::stoi(date.substr(5, 2));
+		unsigned int day = std::stoi(date.substr(8, 2));
+
+		std::chrono::year_month_day ymd{
+			std::chrono::year{year},
+			std::chrono::month{month},
+			std::chrono::day{day}
+		};
+
+		return ymd.ok();
+	}
+	catch (const std::exception& e) {
+		return false;
 	}
 }
