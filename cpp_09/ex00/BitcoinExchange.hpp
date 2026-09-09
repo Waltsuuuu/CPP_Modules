@@ -14,6 +14,7 @@ class BitcoinExchange {
 		BitcoinExchange& operator=(const BitcoinExchange& other);
 		~BitcoinExchange();
 
+		void loadData(const std::string& filename);
 };
 
 #endif
