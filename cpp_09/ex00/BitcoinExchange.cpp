@@ -45,21 +45,25 @@ void BitcoinExchange::loadData(const std::string& filename) {
 
 		if (date.empty() || rateStr.empty() )
 			throw std::runtime_error("Error: invalid data.");
-			
+
+		if (!isValidDate(date))
+			throw std::runtime_error("Error: invalid data.");
+		
+		size_t pos;
+		double rate;
 		try {
-			size_t pos;
-			double rate = std::stod(rateStr, &pos);
-
-			// Make sure the entire string was a valid number
-			if (pos != rateStr.length())
-				throw std::runtime_error("Error: invalid data.");
-
-			// Store date and exchange rate in map
-			_rates[date] = rate;
+			rate = std::stod(rateStr, &pos);
 		}
 		catch (const std::exception& e) {
 			throw std::runtime_error("Error: invalid data.");
 		}
+		
+		// Make sure the entire string was a valid positive number
+		if (pos != rateStr.length() || rate < 0)
+			throw std::runtime_error("Error: invalid data.");
+				
+		// Store date and exchange rate in map
+		_rates[date] = rate;
 	}
 }
 
