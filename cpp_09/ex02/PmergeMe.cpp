@@ -41,7 +41,7 @@ void PmergeMe::parseInput(int argc, char** argv) {
 		long value = std::stol(input);
 
 		// Input must be positive and fit in an int
-		if (value <= 0 | value > INT_MAX)
+		if (value <= 0 || value > INT_MAX)
 			throw std::invalid_argument("input must be between 0 and 2147483647.");
 
 		// Store value in both containers
