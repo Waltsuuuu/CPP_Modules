@@ -30,6 +30,8 @@ void BitcoinExchange::loadData(const std::string& filename) {
 
 	// Skip header line
 	std::getline(file, line);
+	if (line != "date,exchange_rate")
+		throw std::runtime_error("Error: data file invalid header format.");
 
 	// Read and extract data line by line
 	// Example line: yyyy-mm-dd,rate
@@ -77,6 +79,8 @@ void BitcoinExchange::processInput(const std::string& filename) {
 
 	// Skip header line: "date | value"
 	std::getline(file, line);
+	if (line != "date | value")
+		throw std::runtime_error("Error: input file invalid header format.");
 
 	while (std::getline(file, line)) {
 		std::istringstream iss(line);
