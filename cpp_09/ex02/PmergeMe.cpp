@@ -49,3 +49,9 @@ void PmergeMe::parseInput(int argc, char** argv) {
 		_deq.push_back(value);
 	}
 }
+
+void PmergeMe::printBefore() const {
+	std::cout << "Before: ";
+	printContainer(_vec);
+	std::cout << std::endl;
+}
