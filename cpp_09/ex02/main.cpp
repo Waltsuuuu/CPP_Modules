@@ -8,6 +8,7 @@ int main(int argc, char** argv) {
 
 		sorter.parseInput(argc, argv);
 		sorter.printBefore();
+		sorter.sort();
 	}
 	catch (const std::exception& e) {
 		std::cerr << "Error: " << e.what() << std::endl;

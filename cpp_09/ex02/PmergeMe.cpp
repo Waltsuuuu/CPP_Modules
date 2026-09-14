@@ -3,6 +3,7 @@
 #include <climits>
 #include <cerrno>
 #include <stdexcept>
+#include <utility>
 
 // OCF
 PmergeMe::PmergeMe() {}
@@ -54,4 +55,9 @@ void PmergeMe::printBefore() const {
 	std::cout << "Before: ";
 	printContainer(_vec);
 	std::cout << std::endl;
+}
+
+void PmergeMe::sort() {
+	fordJohnson<std::vector<int>, std::vector<std::pair<int, int>>>(_vec);
+	fordJohnson<std::deque<int>,std::deque<std::pair<int, int>>>(_deq);
 }

@@ -1,5 +1,5 @@
-#ifndef PMERGE_ME_HPP
-# define PMERGE_ME_HPP
+#ifndef PMERGEME_HPP
+# define PMERGEME_HPP
 
 #include <vector>
 #include <deque>
@@ -13,6 +13,9 @@ class PmergeMe {
 		template <typename Container>
 		void printContainer(const Container& container) const;
 
+		template <typename Container, typename PairContainer>
+		void fordJohnson(Container& container);
+
 	public:
 		PmergeMe();
 		PmergeMe(const PmergeMe& other);
@@ -21,6 +24,7 @@ class PmergeMe {
 
 		void parseInput(int argc, char** argv);
 		void printBefore() const;
+		void sort();
 };
 
 #include "PmergeMe.tpp"

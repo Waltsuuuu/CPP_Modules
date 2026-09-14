@@ -1,12 +1,13 @@
-NAME    = pmergeme
+NAME     = PmergeMe
 
-CXX     = c++
-CXXFLAGS= -Wall -Wextra -Werror -std=c++20
+CXX      = c++
 
-SRCS    = 	main.cpp \
-			PmergeMe.cpp
+CXXFLAGS = -Wall -Wextra -Werror -std=c++20
 
-OBJS    = $(SRCS:.cpp=.o)
+SRCS     = main.cpp \
+           PmergeMe.cpp
+
+OBJS     = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
@@ -16,6 +17,9 @@ $(NAME): $(OBJS)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+debug: CXXFLAGS += -DDEBUG
+debug: re
+
 clean:
 	rm -f $(OBJS)
 
@@ -24,4 +28,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all debug clean fclean re
