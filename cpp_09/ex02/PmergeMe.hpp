@@ -15,6 +15,7 @@ class PmergeMe {
 
 		template <typename Container, typename PairContainer>
 		void fordJohnson(Container& container);
+		std::vector<size_t> generateInsertionOrder(size_t pendingSize) const;
 
 	public:
 		PmergeMe();
