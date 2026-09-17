@@ -78,39 +78,90 @@ void PmergeMe::sort() {
 // insertion order = b3, b2, b5, b4
 std::vector<size_t> PmergeMe::generateInsertionOrder(size_t pendingSize) const {
 	// Jacobsthal sequence begins: 0, 1, 1, 3, 5, 11, 21...
-	std::vector<size_t> jacobstahl = {0, 1};
+	std::vector<size_t> jacobsthal = {0, 1};
 
-	// Store the final indexes into pendingPairs;
-	std::vector<size_t> order;
+	// Store the final indexes into pendingPairs.
+	std::vector<size_t> insertionOrder;
 
-    // Generate enough Jacobsthal numbers to cover pendingPairs.
-	while (jacobstahl.back() < pendingSize) {
-		size_t size = jacobstahl.size();
+#ifdef DEBUG
+	std::cout << "\nGenerating insertion order for "
+			  << pendingSize
+			  << " pairs\n";
+#endif
+
+	// Generate enough Jacobsthal numbers to cover pendingPairs.
+	while (jacobsthal.back() < pendingSize) {
+		size_t sequenceSize = jacobsthal.size();
 
 		// Jacobsthal formula:
-        // J(n) = J(n - 1) + 2 * J(n - 2)
-		jacobstahl.push_back(jacobstahl[size - 1] + 2 * jacobstahl[size - 2]);
+		// J(n) = J(n - 1) + 2 * J(n - 2)
+		size_t nextJacobsthal = jacobsthal[sequenceSize - 1] + 2 * jacobsthal[sequenceSize - 2];
+		jacobsthal.push_back(nextJacobsthal);
+
+#ifdef DEBUG
+		std::cout << "Generated Jacobsthal number: "
+				  << nextJacobsthal
+				  << '\n';
+#endif
 	}
 
-	// Use consecutive Jacobstahl nummbers as group boundaries.
-	for (size_t i = 1; i < jacobstahl.size(); ++i) {
-		// End the group at the current Jacobsthal number.
-        // If that number is larger than pendingPairs, stop at
-        // the actual end of pendingPairs instead.
-		size_t end = std::min(jacobstahl[i], pendingSize);
+#ifdef DEBUG
+	std::cout << "Jacobsthal sequence: ";
 
-		// The previous Jacobstahl number marks where the preceding group ended.
-		size_t start = jacobstahl[i - 1];
+	for (size_t number : jacobsthal)
+		std::cout << number << " ";
 
-		// Add the indexes in revers order withing this group
-		while (end > start) {
-			--end;
+	std::cout << '\n';
+#endif
 
-			// Index 0 is b1 which is inserted separately.
-			if (end > 0)
-				order.push_back(end);
+	// Use consecutive Jacobsthal numbers as group boundaries.
+	for (size_t i = 1; i < jacobsthal.size(); ++i) {
+		// The group normally ends at the current Jacobsthal number.
+		// std::min() prevents it from going past pendingPairs.
+		size_t groupEnd = std::min(jacobsthal[i], pendingSize);
+
+		// The previous Jacobsthal number marks where the preceding
+		// group ended.
+		size_t previousGroupEnd = jacobsthal[i - 1];
+
+#ifdef DEBUG
+		std::cout << "Group between Jacobsthal values "
+				  << previousGroupEnd
+				  << " and "
+				  << jacobsthal[i]
+				  << ": ";
+
+		if (jacobsthal[i] > pendingSize)
+			std::cout << "(end limited to " << pendingSize << ") ";
+#endif
+
+		// Add the indexes in reverse order within this group.
+		while (groupEnd > previousGroupEnd) {
+			--groupEnd;
+
+			// Index 0 represents b1, which is already in mainChain.
+			if (groupEnd > 0) {
+				insertionOrder.push_back(groupEnd);
+
+#ifdef DEBUG
+				std::cout << groupEnd << " ";
+#endif
+			}
 		}
+
+#ifdef DEBUG
+		std::cout << '\n';
+#endif
 	}
 
-	return order;
+#ifdef DEBUG
+	std::cout << "Final insertion indexes: ";
+
+	for (size_t index : insertionOrder)
+		std::cout << index << " ";
+
+	std::cout << "\n\n";
+#endif
+
+	return insertionOrder;
 }

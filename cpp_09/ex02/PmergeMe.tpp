@@ -2,190 +2,210 @@
 # define PMERGEME_TPP
 
 template <typename Container>
-void PmergeMe::printContainer(const Container& container) const {
-    bool first = true;
+void PmergeMe::printContainer(const Container& values) const {
+	bool isFirstValue = true;
 
-    for (int value : container)
-    {
-        if (!first)
-            std::cout << " ";
+	for (const auto& value : values) {
+		if (!isFirstValue)
+			std::cout << " ";
 
-        std::cout << value;
-        first = false;
-    }
+		std::cout << value;
+		isFirstValue = false;
+	}
 }
 
 template <typename Container, typename PairContainer>
-void PmergeMe::fordJohnson(Container& container) {
+void PmergeMe::fordJohnson(Container& values) {
 #ifdef DEBUG
 	std::cout << "\nFJ CALL: ";
-	printContainer(container);
+	printContainer(values);
 	std::cout << std::endl;
 #endif
-	// Already sorted check.
-	if (container.size() <= 1) {
+
+	// A container with zero or one value is already sorted.
+	// This also stops the recursive calls.
+	if (values.size() <= 1) {
 #ifdef DEBUG
 		std::cout << "\nBASE CASE REACHED\n" << std::endl;
 #endif
 		return;
 	}
 
-	// Stores each pair as (smaller, larger)
+	// Store each adjacent pair as (smaller, larger).
+	//
+	// pair.first  = smaller 'b' value
+	// pair.second = larger 'a' value
+	//
 	// (b1, a1)
 	// (b2, a2)
 	// (b3, a3) ...
-	PairContainer pairs;
+	PairContainer orderedPairs;
 
-	// If odd-size container, save last pairless value in 'straggler'.
-	bool hasStraggler = container.size() % 2 != 0;
-	int straggler = 0;
-	if (hasStraggler)
-		straggler = container.back();
+	// An odd-sized container has one value without a partner.
+	// Save it so it can be inserted into the sorted chain later.
+	bool hasUnpairedValue = values.size() % 2 != 0;
+	int unpairedValue = 0;
 
-	// Create pairs of two adjacent values.
-	for (std::size_t i = 0; i + 1 < container.size(); i += 2) {
-		int first = container[i];
-		int second = container[i + 1];
+	if (hasUnpairedValue)
+		unpairedValue = values.back();
 
-		// Store as (smaller, larger)
-		if (first < second)
-			pairs.emplace_back(first, second);
+	// Divide the input into adjacent pairs and order each pair (smaller, larger).
+	for (std::size_t index = 0; index + 1 < values.size(); index += 2) {
+		int leftValue = values[index];
+		int rightValue = values[index + 1];
+
+		if (leftValue < rightValue)
+			orderedPairs.emplace_back(leftValue, rightValue);
 		else
-			pairs.emplace_back(second, first);
+			orderedPairs.emplace_back(rightValue, leftValue);
 	}
 
 #ifdef DEBUG
-    std::cout << "Pairs:\n";
+	std::cout << "Ordered pairs:\n";
 
-    for (const std::pair<int, int>& pair : pairs)
-    {
-        std::cout << "("
-                  << pair.first   // Smaller b value
-                  << ", "
-                  << pair.second  // Larger a value
-                  << ")\n";
-    }
+	for (const std::pair<int, int>& pair : orderedPairs) {
+		std::cout << "(" << pair.first << ", " << pair.second << ")\n";
+	}
 
-    if (hasStraggler)
-        std::cout << "Straggler: " << straggler << '\n';
+	if (hasUnpairedValue)
+		std::cout << "Unpaired value: " << unpairedValue << '\n';
 #endif
 
-	// Extract the larger value from every pair.
+	// Collect the larger a value from every pair.
+	//
+	// Example:
+	// orderedPairs = [(2, 8), (1, 5), (4, 7)]
+	// largerValues = [8, 5, 7]
 	Container largerValues;
-	for (const std::pair<int, int>& pair : pairs)
+
+	for (const std::pair<int, int>& pair : orderedPairs)
 		largerValues.push_back(pair.second);
 
 #ifdef DEBUG
-		std::cout << "Larger values before recursion: ";
-		printContainer(largerValues);
-		std::cout << '\n';
+	std::cout << "Larger values before recursion: ";
+	printContainer(largerValues);
+	std::cout << '\n';
 #endif
 
-	// Recursively apply the same pairing process to the larger values.
-	// Each recursive call reduces the problem size by roughly half.
+	// Recursively sort the larger values.
+	// Each call receives roughly half as many values.
 	fordJohnson<Container, PairContainer>(largerValues);
 
 #ifdef DEBUG
-    std::cout << "Larger values after recursion: ";
-    printContainer(largerValues);
-    std::cout << '\n';
+	std::cout << "Larger values after recursion: ";
+	printContainer(largerValues);
+	std::cout << '\n';
 #endif
 
-	PairContainer sortedPairs;
-	for (int larger : largerValues) {
-		for (typename PairContainer::iterator it = pairs.begin(); it != pairs.end(); ++it) {
-			if (it->second == larger) {
-				sortedPairs.push_back(*it);
+	// Reorder the original pairs to follow the sorted order
+	// of their larger values.
+	//
+	// Original pairs:      [(2, 8), (1, 5), (4, 7)]
+	// Sorted larger values: [5, 7, 8]
+	// Reordered pairs:     [(1, 5), (4, 7), (2, 8)]
+	PairContainer pairsInLargerValueOrder;
 
-				// Prevents the same pair from being matched again.
-				pairs.erase(it);
+	for (int sortedLargerValue : largerValues) {
+		for (typename PairContainer::iterator pairIt = orderedPairs.begin(); pairIt != orderedPairs.end(); ++pairIt) {
+			if (pairIt->second == sortedLargerValue) {
+				pairsInLargerValueOrder.push_back(*pairIt);
+
+				// Remove the matched pair so it cannot be matched
+				// again when duplicate larger values exist.
+				orderedPairs.erase(pairIt);
 				break;
 			}
 		}
 	}
 
 #ifdef DEBUG
-    std::cout << "Pairs after reordering:\n";
+	std::cout << "Pairs in larger-value order:\n";
 
-    for (const std::pair<int, int>& pair : sortedPairs)
-    {
-        std::cout << "("
-                  << pair.first
-                  << ", "
-                  << pair.second
-                  << ")\n";
-    }
+	for (const std::pair<int, int>& pair : pairsInLargerValueOrder)
+		std::cout << "(" << pair.first << ", " << pair.second << ")\n";
 #endif
 
-	// Build the initial main chain.
-	// The first smaller value can be placed before all sorted larger values
-	// because it is smaller than the smallest larger value.
+	// Build the initial sorted main chain.
+	//
+	// The larger a values are sorted:
+	// a1 <= a2 <= a3 ...
+	//
+	// We also know b1 <= a1 because they belong to the same pair.
+	// Therefore, this chain is already sorted:
+	// [b1, a1, a2, a3 ...]
 	Container mainChain;
-	if (!sortedPairs.empty()) {
-		// add b1.
-		mainChain.push_back(sortedPairs.front().first);
 
-		// Add all sorted 'a' values.
-		for (const std::pair<int, int>& pair : sortedPairs)	
+	if (!pairsInLargerValueOrder.empty()) {
+		// Place b1 at the beginning.
+		mainChain.push_back(pairsInLargerValueOrder.front().first);
+
+		// Add all sorted a values after b1.
+		for (const std::pair<int, int>& pair : pairsInLargerValueOrder)
 			mainChain.push_back(pair.second);
 	}
 
 #ifdef DEBUG
-    std::cout << "Initial main chain: ";
-    printContainer(mainChain);
-    std::cout << '\n';
-#endif
-
-	std::vector<size_t> insertionOrder = generateInsertionOrder(sortedPairs.size());
-
-#ifdef DEBUG
-	std::cout << "Insertion order: ";
-	printContainer(insertionOrder);
+	std::cout << "Initial main chain: ";
+	printContainer(mainChain);
 	std::cout << '\n';
 #endif
 
-	// Track the current index of each a value in mainChain.
+	// Generate the pair indexes for the remaining b values.
+	//
+	// pairs:            [pair1, pair2, pair3, pair4, pair5]
+	// smaller values:   [b1,    b2,    b3,    b4,    b5]
+	// returned indexes: [2, 1, 4, 3]
+	// insertion order:  b3, b2, b5, b4
+	std::vector<std::size_t> pendingPairIndexes = generateInsertionOrder(pairsInLargerValueOrder.size());
+
+#ifdef DEBUG
+	std::cout << "Pending pair indexes: ";
+	printContainer(pendingPairIndexes);
+	std::cout << '\n';
+#endif
+
+	// Store the current index of every larger a value in mainChain.
 	//
 	// Initially:
-	// mainChain = [b1, a1, a2, a3, ...]
+	// mainChain = [b1, a1, a2, a3 ...]
 	//
-	// Therefore:
 	// a1 is at index 1
 	// a2 is at index 2
 	// a3 is at index 3
-	std::vector<size_t> partnerPositions(sortedPairs.size());
+	std::vector<std::size_t> largerPartnerIndexes(pairsInLargerValueOrder.size());
 
-	for (size_t i = 0; i < sortedPairs.size(); ++i)
-			partnerPositions[i] = i + 1;
-	
-	// Insert the remaining 'b' values in Jacobstahl order.
-	for (size_t pairIndex : insertionOrder) {
-		int pendingValue = sortedPairs[pairIndex].first;
+	for (std::size_t pairIndex = 0; pairIndex < pairsInLargerValueOrder.size(); ++pairIndex)
+		largerPartnerIndexes[pairIndex] = pairIndex + 1;
 
-		// The pending value only needs to be compared against values
-		// before its paired a value.
-		typename Container::iterator searchEnd = mainChain.begin() + partnerPositions[pairIndex];
+	// Insert the remaining b values in Jacobsthal order.
+	for (std::size_t pairIndex : pendingPairIndexes) {
+		int smallerValueToInsert = pairsInLargerValueOrder[pairIndex].first;
 
-		typename Container::iterator insertionPoint = std::lower_bound(mainChain.begin(), searchEnd, pendingValue);
+		// We already know that the smaller value is less than or
+		// equal to its larger partner. It cannot belong after that
+		// partner, so binary search only needs to examine the part
+		// of the chain before it.
+		typename Container::iterator searchRangeEnd = mainChain.begin() + largerPartnerIndexes[pairIndex];
+		typename Container::iterator insertPosition = std::lower_bound(mainChain.begin(), searchRangeEnd, smallerValueToInsert);
 
-		// Save the index before insertion invalidates iterator.
-		size_t insertionIndex = insertionPoint - mainChain.begin();
+		// Save the index before insert() invalidates the iterator.
+		std::size_t newValueIndex = insertPosition - mainChain.begin();
 
 #ifdef DEBUG
 		std::cout << "Inserting b" << pairIndex + 1
-				  << " = " << pendingValue
-				  << " before partner "
-				  << sortedPairs[pairIndex].second
+				  << " = " << smallerValueToInsert
+				  << " before its larger partner "
+				  << pairsInLargerValueOrder[pairIndex].second
 				  << '\n';
 #endif
 
-		mainChain.insert(insertionPoint, pendingValue);
+		mainChain.insert(insertPosition, smallerValueToInsert);
 
-		// The insertion shifts every a partner at or after the
-		// insertion position one place to the right.
-		for (std::size_t i = 0; i < partnerPositions.size(); ++i) {
-			if (partnerPositions[i] >= insertionIndex)
-				++partnerPositions[i];
+		// Inserting a value shifts every larger partner at or after
+		// the insertion position one place to the right.
+		for (std::size_t pairIndexToUpdate = 0; pairIndexToUpdate < largerPartnerIndexes.size(); ++pairIndexToUpdate) {
+			if (largerPartnerIndexes[pairIndexToUpdate] >= newValueIndex)
+				++largerPartnerIndexes[pairIndexToUpdate];
 		}
 
 #ifdef DEBUG
@@ -195,37 +215,31 @@ void PmergeMe::fordJohnson(Container& container) {
 #endif
 	}
 
-	// The straggler does not have an a partner, so search the
-	// entire chain for its correct insertion position.
-	if (hasStraggler) {
-		typename Container::iterator insertionPoint =
-			std::lower_bound(
-				mainChain.begin(),
-				mainChain.end(),
-				straggler
-			);
+	// The unpaired value has no larger partner, so search the
+	// entire main chain to find its correct position.
+	if (hasUnpairedValue) {
+		typename Container::iterator insertPosition = std::lower_bound(mainChain.begin(), mainChain.end(), unpairedValue);
 
 #ifdef DEBUG
-		std::cout << "Inserting straggler: "
-				  << straggler << '\n';
+		std::cout << "Inserting unpaired value: " << unpairedValue << '\n';
 #endif
 
-		mainChain.insert(insertionPoint, straggler);
+		mainChain.insert(insertPosition, unpairedValue);
 
 #ifdef DEBUG
-		std::cout << "Main chain after straggler: ";
+		std::cout << "Main chain after unpaired value: ";
 		printContainer(mainChain);
 		std::cout << '\n';
 #endif
 	}
 
-	// Return this recursion level's completed sorted chain
-	// through the reference parameter.
-	container = mainChain;
+	// Store this recursion level's finished result in the original
+	// container so it is available to the previous recursive call.
+	values = mainChain;
 
 #ifdef DEBUG
 	std::cout << "FJ RESULT: ";
-	printContainer(container);
+	printContainer(values);
 	std::cout << '\n';
 #endif
 }
