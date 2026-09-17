@@ -17,11 +17,23 @@ void PmergeMe::printContainer(const Container& container) const {
 
 template <typename Container, typename PairContainer>
 void PmergeMe::fordJohnson(Container& container) {
+#ifdef DEBUG
+	std::cout << "\nFJ CALL: ";
+	printContainer(container);
+	std::cout << std::endl;
+#endif
 	// Already sorted check.
-	if (container.size() <= 1)
+	if (container.size() <= 1) {
+#ifdef DEBUG
+		std::cout << "\nBASE CASE REACHED\n" << std::endl;
+#endif
 		return;
+	}
 
 	// Stores each pair as (smaller, larger)
+	// (b1, a1)
+	// (b2, a2)
+	// (b3, a3) ...
 	PairContainer pairs;
 
 	// If odd-size container, save last pairless value in 'straggler'.
@@ -122,6 +134,99 @@ void PmergeMe::fordJohnson(Container& container) {
     std::cout << "Initial main chain: ";
     printContainer(mainChain);
     std::cout << '\n';
+#endif
+
+	std::vector<size_t> insertionOrder = generateInsertionOrder(sortedPairs.size());
+
+#ifdef DEBUG
+	std::cout << "Insertion order: ";
+	printContainer(insertionOrder);
+	std::cout << '\n';
+#endif
+
+	// Track the current index of each a value in mainChain.
+	//
+	// Initially:
+	// mainChain = [b1, a1, a2, a3, ...]
+	//
+	// Therefore:
+	// a1 is at index 1
+	// a2 is at index 2
+	// a3 is at index 3
+	std::vector<size_t> partnerPositions(sortedPairs.size());
+
+	for (size_t i = 0; i < sortedPairs.size(); ++i)
+			partnerPositions[i] = i + 1;
+	
+	// Insert the remaining 'b' values in Jacobstahl order.
+	for (size_t pairIndex : insertionOrder) {
+		int pendingValue = sortedPairs[pairIndex].first;
+
+		// The pending value only needs to be compared against values
+		// before its paired a value.
+		typename Container::iterator searchEnd = mainChain.begin() + partnerPositions[pairIndex];
+
+		typename Container::iterator insertionPoint = std::lower_bound(mainChain.begin(), searchEnd, pendingValue);
+
+		// Save the index before insertion invalidates iterator.
+		size_t insertionIndex = insertionPoint - mainChain.begin();
+
+#ifdef DEBUG
+		std::cout << "Inserting b" << pairIndex + 1
+				  << " = " << pendingValue
+				  << " before partner "
+				  << sortedPairs[pairIndex].second
+				  << '\n';
+#endif
+
+		mainChain.insert(insertionPoint, pendingValue);
+
+		// The insertion shifts every a partner at or after the
+		// insertion position one place to the right.
+		for (std::size_t i = 0; i < partnerPositions.size(); ++i) {
+			if (partnerPositions[i] >= insertionIndex)
+				++partnerPositions[i];
+		}
+
+#ifdef DEBUG
+		std::cout << "Main chain: ";
+		printContainer(mainChain);
+		std::cout << '\n';
+#endif
+	}
+
+	// The straggler does not have an a partner, so search the
+	// entire chain for its correct insertion position.
+	if (hasStraggler) {
+		typename Container::iterator insertionPoint =
+			std::lower_bound(
+				mainChain.begin(),
+				mainChain.end(),
+				straggler
+			);
+
+#ifdef DEBUG
+		std::cout << "Inserting straggler: "
+				  << straggler << '\n';
+#endif
+
+		mainChain.insert(insertionPoint, straggler);
+
+#ifdef DEBUG
+		std::cout << "Main chain after straggler: ";
+		printContainer(mainChain);
+		std::cout << '\n';
+#endif
+	}
+
+	// Return this recursion level's completed sorted chain
+	// through the reference parameter.
+	container = mainChain;
+
+#ifdef DEBUG
+	std::cout << "FJ RESULT: ";
+	printContainer(container);
+	std::cout << '\n';
 #endif
 }
 
